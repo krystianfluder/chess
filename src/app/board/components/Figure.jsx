@@ -21,11 +21,7 @@ function Figure({ figure }) {
       return <WhiteRook/>
     case "wknight":
       return <WhiteKnight/>
-        // <div className="board__figure" style={positions[position]}>
-          
-        // </div>
-      
-    case "wbishop":
+     case "wbishop":
       return <WhiteBishop/>
     case "wqueen":
       return <WhiteQueen/>
