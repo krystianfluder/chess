@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.scss';
-import Chessboard from './chessboard/containers/Chessboard.jsx';
+import ChessBoard from './board/containers/ChessBoard';
 
 function App() {
   return (
-    <Chessboard/>
+    <ChessBoard/>
   );
 };
 
