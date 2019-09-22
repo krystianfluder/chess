@@ -79,16 +79,39 @@ export class ChessBoard extends Component {
     const searchIndex = positionsValues.findIndex((item) => (
       item.left === procentX && item.top === procentY
     ));
-    const search = positionsKeys[searchIndex];
-  
-    const figures = this.state.figures.map((item) => {
-      if(item.position===search) {
+    let search = positionsKeys[searchIndex];
+      
+    let oneSelected = this.state.figures.find((item) => 
+      item.selected === true
+    )
+
+    let changePosition = null;
+
+    let figures = this.state.figures.map((item) => {
+      if(item.position===search && item.selected) {
+        return { ...item, selected: false };
+      }
+      else if(item.position===search) {
         return { ...item, selected: true };
+      } else if(oneSelected && oneSelected.position === item.position && item.position!==search) {    
+        changePosition = search;
       }
       return { ...item, selected: false };
     });
+
+    if(changePosition) {      
+      figures = figures.filter((item) => {
+        return changePosition !== item.position; 
+      });
+      figures = figures.map((item) => {
+        if(oneSelected.position === item.position) {
+          return { ...item, selected: false, position: changePosition }
+        }
+        return { ...item, selected: false }
+      })
+      search = null;
+    }
     this.setState({figures, selected: search});
-    console.log(search);
   }
 
   onFigure = (e) => {
