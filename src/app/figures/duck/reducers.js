@@ -1,8 +1,9 @@
 import types from './types';
+import produce from 'immer';
 
 const INITIAL_STATE = {
   selected: null,
-  figures: [
+  items: [
     { position: "a1", figure: "wrook" },
     { position: "b1", figure: "wknight" },
     { position: "c1", figure: "wbishop" },
@@ -38,15 +39,50 @@ const INITIAL_STATE = {
   ]
 };
 
-const boardReducer = (state = INITIAL_STATE, action) => {
+const figuresReducer = (state = INITIAL_STATE, action) => {
   switch(action.type) {
-    case types.RESET_CHESSBOARD:
-      return {
-        ...state, figures: []
-      };
+    case types.RESET_FIGURES:
+      return produce(state, draftState => {
+        draftState.items = INITIAL_STATE.figures;
+      });
+    case types.SET_FIGURES:
+      return produce(state, draftState => {
+        draftState.items = action.items;
+      });
+    case types.SELECT_FIGURE:
+      return produce(state, draftState => {
+        let selected = state.selected;
+         if(selected !== null)
+          selected = null;
+        else {
+          selected = state.items.find((item) => 
+            item.position === action.position
+          ).position;
+        }          
+        draftState.selected = selected
+      });
+    case types.MOVE_FIGURE:
+      return produce(state, draftState => {
+        const selected = state.selected;
+        const search = action.position;
+        let newItems = state.items
+        if(selected !== search) {
+          newItems = newItems.filter((item) => 
+          search !== item.position
+          );
+        };
+        newItems = newItems.map((item) => {
+          if(selected === item.position) {
+            return { ...item, position: search }
+          }
+          return item
+        });
+        draftState.items = newItems;
+        draftState.selected = null;
+      });
     default:
       return state;
   };
 };
 
-export default boardReducer;
+export default figuresReducer;
