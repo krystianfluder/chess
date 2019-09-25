@@ -1,12 +1,12 @@
 import React from 'react';
 
-function WhiteQueen({size}) {
+function Queen({ colors: { primary, secondary } }) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" width={size} height="100%">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" width="100%" height="100%">
       <g
-        fill="#fff"
+        fill={primary}
         fillRule="evenodd"
-        stroke="#000"
+        stroke={secondary}
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round">
@@ -25,4 +25,4 @@ function WhiteQueen({size}) {
   )
 }
 
-export default WhiteQueen;
+export default Queen;

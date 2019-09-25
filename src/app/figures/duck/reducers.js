@@ -2,40 +2,42 @@ import types from './types';
 import produce from 'immer';
 
 const INITIAL_STATE = {
+  tourPlayerOne: true,
   selected: null,
+  availableMove: null,
   items: [
-    { position: "a1", figure: "wrook" },
-    { position: "b1", figure: "wknight" },
-    { position: "c1", figure: "wbishop" },
-    { position: "d1", figure: "wqueen" },
-    { position: "e1", figure: "wking" },
-    { position: "f1", figure: "wbishop" },
-    { position: "g1", figure: "wknight" },
-    { position: "h1", figure: "wrook" },
-    { position: "a2", figure: "wpawn" },
-    { position: "b2", figure: "wpawn" },
-    { position: "c2", figure: "wpawn" },
-    { position: "d2", figure: "wpawn" },
-    { position: "e2", figure: "wpawn" },
-    { position: "f2", figure: "wpawn" },
-    { position: "g2", figure: "wpawn" },
-    { position: "h2", figure: "wpawn" },
-    { position: "a7", figure: "bpawn" },
-    { position: "b7", figure: "bpawn" },
-    { position: "c7", figure: "bpawn" },
-    { position: "d7", figure: "bpawn" },
-    { position: "e7", figure: "bpawn" },
-    { position: "f7", figure: "bpawn" },
-    { position: "g7", figure: "bpawn" },
-    { position: "h7", figure: "bpawn" }, 
-    { position: "a8", figure: "brook" },
-    { position: "b8", figure: "bknight" },
-    { position: "c8", figure: "bbishop" },
-    { position: "d8", figure: "bqueen" },
-    { position: "e8", figure: "bking" },
-    { position: "f8", figure: "bbishop" },
-    { position: "g8", figure: "bknight" },
-    { position: "h8", figure: "brook" },
+    { position: "a1", figure: "rook", playerOne: true },
+    { position: "b1", figure: "knight", playerOne: true },
+    { position: "c1", figure: "bishop", playerOne: true },
+    { position: "d1", figure: "queen", playerOne: true },
+    { position: "e1", figure: "king", playerOne: true },
+    { position: "f1", figure: "bishop", playerOne: true },
+    { position: "g1", figure: "knight", playerOne: true },
+    { position: "h1", figure: "rook", playerOne: true },
+    { position: "a2", figure: "pawn", playerOne: true },
+    { position: "b2", figure: "pawn", playerOne: true },
+    { position: "c2", figure: "pawn", playerOne: true },
+    { position: "d2", figure: "pawn", playerOne: true },
+    { position: "e2", figure: "pawn", playerOne: true },
+    { position: "f2", figure: "pawn", playerOne: true },
+    { position: "g2", figure: "pawn", playerOne: true },
+    { position: "h2", figure: "pawn", playerOne: true },
+    { position: "a7", figure: "pawn", playerOne: false },
+    { position: "b7", figure: "pawn", playerOne: false },
+    { position: "c7", figure: "pawn", playerOne: false },
+    { position: "d7", figure: "pawn", playerOne: false },
+    { position: "e7", figure: "pawn", playerOne: false },
+    { position: "f7", figure: "pawn", playerOne: false },
+    { position: "g7", figure: "pawn", playerOne: false },
+    { position: "h7", figure: "pawn", playerOne: false }, 
+    { position: "a8", figure: "rook", playerOne: false },
+    { position: "b8", figure: "knight", playerOne: false },
+    { position: "c8", figure: "bishop", playerOne: false },
+    { position: "d8", figure: "queen", playerOne: false },
+    { position: "e8", figure: "king", playerOne: false },
+    { position: "f8", figure: "bishop", playerOne: false },
+    { position: "g8", figure: "knight", playerOne: false },
+    { position: "h8", figure: "rook", playerOne: false },
   ]
 };
 
@@ -51,15 +53,21 @@ const figuresReducer = (state = INITIAL_STATE, action) => {
       });
     case types.SELECT_FIGURE:
       return produce(state, draftState => {
-        let selected = state.selected;
-         if(selected !== null)
-          selected = null;
-        else {
-          selected = state.items.find((item) => 
+        if(state.selected === null && state.selected === null) {
+          const selected = state.items.find((item) => 
             item.position === action.position
-          ).position;
-        }          
-        draftState.selected = selected
+          );
+          const figure = selected.figure;
+          const [x, y] = selected.position.split('');
+          // todo
+          const availableMove = [{x, y}];
+          draftState.availableMove = availableMove;
+          draftState.selected = selected.position;
+        }
+        else {
+          draftState.selected = null;
+          draftState.availableMove = null;
+        }
       });
     case types.MOVE_FIGURE:
       return produce(state, draftState => {
@@ -79,6 +87,8 @@ const figuresReducer = (state = INITIAL_STATE, action) => {
         });
         draftState.items = newItems;
         draftState.selected = null;
+        draftState.availableMove = null;
+        draftState.tourPlayerOne = !state.tourPlayerOne;
       });
     default:
       return state;

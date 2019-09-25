@@ -17,6 +17,7 @@ function ChessBoard() {
   const boardRef = useRef();
   const selected = useSelector(state => state.figures.selected);
   const figures = useSelector(state => state.figures.items);
+  const tourPlayerOne = useSelector(state => state.figures.tourPlayerOne);
 
   const findPosition = (e) => {
     function procent(procent) {
@@ -47,23 +48,27 @@ function ChessBoard() {
 
   const onMouseMove = (e) => {
     let search = findPosition(e);
-    const availableMove = figures.findIndex((item) => 
-      item.position === search
+    const availableSelect = figures.findIndex((item) => 
+      item.position === search && item.playerOne === tourPlayerOne
     );
     if(selected === null) {
-      if(availableMove !== -1)
+      if(availableSelect !== -1)
         dispatch({type: "SELECT_FIGURE", position: search});
     }
     else {
-      dispatch({type: "MOVE_FIGURE", position: search});
+      if(selected !== search)
+        dispatch({type: "MOVE_FIGURE", position: search});
+      else {
+        dispatch({type: "SELECT_FIGURE", position: search});
+      }
     }   
   };
 
   return (
     <div className="board" style={styles} ref={boardRef} onClick={onMouseMove}>
       {figures.map((figure) =>
-        <Field selected={selected} key={figure.position}position={figure.position}>
-         <Figure figure={figure.figure} position={figure.position}/>
+        <Field selected={selected} key={figure.position} position={figure.position}>
+         <Figure figure={figure.figure} position={figure.position} playerOne={figure.playerOne}/>
         </Field>          
       )}
     </div>
