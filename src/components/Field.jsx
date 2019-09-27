@@ -1,5 +1,5 @@
 import React from 'react'
-import positions from '../../../assets/js/positions';
+import positions from '../assets/js/positions';
 
 function Field({ position, children, selected }) { 
   if(selected === position) {

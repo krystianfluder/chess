@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import App from './app/App';
+import App from './App';
 import rootReducer from './reducers';
 import * as serviceWorker from './serviceWorker';
 

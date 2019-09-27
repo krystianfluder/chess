@@ -1,0 +1,1 @@
+export { default as figuresActions } from './figures';

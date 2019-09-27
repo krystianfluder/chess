@@ -1,4 +1,4 @@
-import types from './types';
+import { figuresTypes as types} from '../../types';
 import produce from 'immer';
 
 const INITIAL_STATE = {
@@ -53,15 +53,11 @@ const figuresReducer = (state = INITIAL_STATE, action) => {
       });
     case types.SELECT_FIGURE:
       return produce(state, draftState => {
-        if(state.selected === null && state.selected === null) {
+        if(state.selected === null) {
           const selected = state.items.find((item) => 
             item.position === action.position
           );
-          const figure = selected.figure;
-          const [x, y] = selected.position.split('');
-          // todo
-          const availableMove = [{x, y}];
-          draftState.availableMove = availableMove;
+          draftState.availableMove = [];
           draftState.selected = selected.position;
         }
         else {

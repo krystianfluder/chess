@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import Figure from '../components/Figure';
 import Field from '../components/Field';
-import positions from '../../../assets/js/positions';
-import boardBg from '../../../assets/img/boardBg.png';
+import positions from '../assets/js/positions'
+import boardBg from '../assets/img/boardBg.png';
+import { figuresActions } from '../actions/index';
 
 const styles = {
   backgroundImage: `url(${boardBg})`,
@@ -12,13 +13,8 @@ const styles = {
   backgroundRepeat: 'no-repeat',
 }
 
-function ChessBoard() {
-  const dispatch = useDispatch();
+function ChessBoard({ figures, selected, tourPlayerOne, selectFigure, moveFigure }) {
   const boardRef = useRef();
-  const selected = useSelector(state => state.figures.selected);
-  const figures = useSelector(state => state.figures.items);
-  const tourPlayerOne = useSelector(state => state.figures.tourPlayerOne);
-
   const findPosition = (e) => {
     function procent(procent) {
       if (procent >= 87.5) return "87.5%";
@@ -53,17 +49,16 @@ function ChessBoard() {
     );
     if(selected === null) {
       if(availableSelect !== -1)
-        dispatch({type: "SELECT_FIGURE", position: search});
+        selectFigure(search);
     }
     else {
       if(selected !== search)
-        dispatch({type: "MOVE_FIGURE", position: search});
+        moveFigure(search);
       else {
-        dispatch({type: "SELECT_FIGURE", position: search});
+        selectFigure(search);
       }
     }   
   };
-
   return (
     <div className="board" style={styles} ref={boardRef} onClick={onMouseMove}>
       {figures.map((figure) =>
@@ -75,4 +70,15 @@ function ChessBoard() {
   );
 };
 
-export default ChessBoard;
+const mapStateToProps = (state) => ({
+  figures: state.figures.present.items,
+  selected: state.figures.present.selected,
+  tourPlayerOne: state.figures.present.tourPlayerOne,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  selectFigure: position => dispatch(figuresActions.select(position)),
+  moveFigure: position => dispatch(figuresActions.move(position)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChessBoard);
