@@ -21,6 +21,7 @@ const ChessBoard = () => {
   const tourPlayerOne = useSelector(
     (state) => state.figures.present.tourPlayerOne
   );
+
   const selectFigure = (figure) => {
     dispatch(figuresActions.select(figure));
   };
@@ -29,16 +30,17 @@ const ChessBoard = () => {
   };
 
   const onMouseMove = (e) => {
-    let search = findPosition(e, boardRef);
+    let currentFigure = findPosition(e, boardRef);
     const availableSelect = figures.findIndex(
-      (item) => item.position === search && item.playerOne === tourPlayerOne
+      (item) =>
+        item.position === currentFigure && item.playerOne === tourPlayerOne
     );
     if (selected === null) {
-      if (availableSelect !== -1) selectFigure(search);
+      if (availableSelect !== -1) selectFigure(currentFigure);
     } else {
-      if (selected !== search) moveFigure(search);
+      if (selected !== currentFigure) moveFigure(currentFigure);
       else {
-        selectFigure(search);
+        selectFigure(currentFigure);
       }
     }
   };

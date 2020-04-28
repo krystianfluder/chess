@@ -5,29 +5,27 @@
 }
 
 .score {
-  
 }
 
 .control {
-
 }
 
 .board {
-  width: 40%;
-  padding-top: 40%;
+  width: 100%;
+  padding-top: 100%;
   position: relative;
-  // z-index: -999;
 
   &__figure {
     z-index: 1;
     position: absolute;
     width: 12.5%;
     height: 12.5%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     &--active {
       background-color: red;
     }
   }
+}
+
+.game {
+  display: flex;
 }
