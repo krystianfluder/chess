@@ -1,5 +1,5 @@
-import { figuresTypes as types} from '../../types';
-import produce from 'immer';
+import { figuresTypes as types } from "../types";
+import produce from "immer";
 
 const INITIAL_STATE = {
   tourPlayerOne: true,
@@ -29,7 +29,7 @@ const INITIAL_STATE = {
     { position: "e7", figure: "pawn", playerOne: false },
     { position: "f7", figure: "pawn", playerOne: false },
     { position: "g7", figure: "pawn", playerOne: false },
-    { position: "h7", figure: "pawn", playerOne: false }, 
+    { position: "h7", figure: "pawn", playerOne: false },
     { position: "a8", figure: "rook", playerOne: false },
     { position: "b8", figure: "knight", playerOne: false },
     { position: "c8", figure: "bishop", playerOne: false },
@@ -38,48 +38,45 @@ const INITIAL_STATE = {
     { position: "f8", figure: "bishop", playerOne: false },
     { position: "g8", figure: "knight", playerOne: false },
     { position: "h8", figure: "rook", playerOne: false },
-  ]
+  ],
 };
 
 const figuresReducer = (state = INITIAL_STATE, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case types.RESET_FIGURES:
-      return produce(state, draftState => {
+      return produce(state, (draftState) => {
         draftState.items = INITIAL_STATE.figures;
       });
     case types.SET_FIGURES:
-      return produce(state, draftState => {
+      return produce(state, (draftState) => {
         draftState.items = action.items;
       });
     case types.SELECT_FIGURE:
-      return produce(state, draftState => {
-        if(state.selected === null) {
-          const selected = state.items.find((item) => 
-            item.position === action.position
+      return produce(state, (draftState) => {
+        if (state.selected === null) {
+          const selected = state.items.find(
+            (item) => item.position === action.position
           );
           draftState.availableMove = [];
           draftState.selected = selected.position;
-        }
-        else {
+        } else {
           draftState.selected = null;
           draftState.availableMove = null;
         }
       });
     case types.MOVE_FIGURE:
-      return produce(state, draftState => {
+      return produce(state, (draftState) => {
         const selected = state.selected;
         const search = action.position;
-        let newItems = state.items
-        if(selected !== search) {
-          newItems = newItems.filter((item) => 
-          search !== item.position
-          );
-        };
+        let newItems = state.items;
+        if (selected !== search) {
+          newItems = newItems.filter((item) => search !== item.position);
+        }
         newItems = newItems.map((item) => {
-          if(selected === item.position) {
-            return { ...item, position: search }
+          if (selected === item.position) {
+            return { ...item, position: search };
           }
-          return item
+          return item;
         });
         draftState.items = newItems;
         draftState.selected = null;
@@ -88,7 +85,7 @@ const figuresReducer = (state = INITIAL_STATE, action) => {
       });
     default:
       return state;
-  };
+  }
 };
 
 export default figuresReducer;

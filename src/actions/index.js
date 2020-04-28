@@ -1,1 +1,3 @@
-export { default as figuresActions } from './figures';
+import figuresActions from "./figures";
+
+export { figuresActions };
