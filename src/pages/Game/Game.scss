@@ -1,3 +1,5 @@
+@import "../../assets/styles/global.scss";
+
 .figures {
   width: 100%;
   padding-top: 100%;
@@ -18,15 +20,18 @@
   width: 100%;
 }
 
-.container {
-  display: flex;
-  width: 50%;
-}
-
 .auth {
   display: flex;
 }
 
 .chess {
-  width: 50%;
+  width: 100%;
+  margin: 0 auto;
+  @include mq(medium) {
+    width: 50%;
+  }
+  @include mq(large) {
+    width: 40%;
+    margin: 0 auto;
+  }
 }

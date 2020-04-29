@@ -2,16 +2,8 @@ import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Figure from "../../components/Figure";
 import Field from "../../components/Field";
-import boardBg from "../../assets/img/boardBg.png";
 import { figuresActions } from "../../actions";
 import findPosition from "../../assets/js/findPosition";
-import Board from "../../components/Game/Board";
-// const styles = {
-//   backgroundImage: `url(${boardBg})`,
-//   backgroundPosition: "center",
-//   backgroundSize: "cover",
-//   backgroundRepeat: "no-repeat",
-// };
 
 const ChessBoard = () => {
   const boardRef = useRef();

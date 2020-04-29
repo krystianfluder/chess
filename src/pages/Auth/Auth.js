@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 import { authActions } from "../../actions";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Form/Input/Input";
+import "./Auth.scss";
 
 const Auth = (props) => {
   const dispatch = useDispatch();

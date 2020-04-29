@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.scss";
 
-import { authActions } from "./actions";
+import { authActions, errorActions } from "./actions";
 
 import Home from "./pages/Home/Home";
 import Game from "./pages/Game/Game";
@@ -12,11 +12,15 @@ import Logout from "./pages/Auth/Logout";
 
 import { BrowserRouter, Route, NavLink, Switch } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
+import Modal from "./components/Modal/Modal";
 
 function App() {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.auth.profile);
   const error = useSelector((state) => state.error.error);
+  const removeError = () => {
+    dispatch(errorActions.remove());
+  };
   useEffect(() => {
     dispatch(authActions.isLogin());
   });
@@ -26,7 +30,10 @@ function App() {
   return (
     <BrowserRouter>
       <Navigation />
-      <div className="container">
+      {error ? (
+        <Modal onClick={removeError}>{JSON.stringify(error)}</Modal>
+      ) : null}
+      <main>
         <Route path="/" exact>
           <Home />
         </Route>
@@ -42,7 +49,7 @@ function App() {
         <Route path="/auth/logout" exact>
           <Logout />
         </Route>
-      </div>
+      </main>
     </BrowserRouter>
   );
 }

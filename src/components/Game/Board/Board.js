@@ -12,6 +12,7 @@ const Board = () => {
         zIndex: -1,
       }}
       src={svg}
+      alt="board"
     />
   );
 };

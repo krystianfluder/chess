@@ -5,7 +5,7 @@ import Control from "./Control";
 import Dashboard from "./Dashboard";
 import "./Game.scss";
 import { Redirect } from "react-router-dom";
-import Board from "../../components/Game/Board";
+import Board from "../../components/Game/Board/Board";
 
 const Game = () => {
   const profile = useSelector((state) => state.auth.profile);
