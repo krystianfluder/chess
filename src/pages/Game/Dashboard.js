@@ -10,6 +10,7 @@ const ChessDashboard = () => {
 
   return (
     <div className="dashboard">
+      <h2>Dashboard</h2>
       Total: {figures ? figures.length : null}
       One: {playerOneFigures.length}
       Two: {playerTwoFigures.length}

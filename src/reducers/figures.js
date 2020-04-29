@@ -45,7 +45,7 @@ const figuresReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case types.RESET_FIGURES:
       return produce(state, (draftState) => {
-        draftState.items = INITIAL_STATE.figures;
+        draftState = INITIAL_STATE.items;
       });
     case types.SET_FIGURES:
       return produce(state, (draftState) => {

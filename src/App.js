@@ -10,7 +10,7 @@ import Auth from "./pages/Auth/Auth";
 import Profile from "./pages/Auth/Profile";
 import Logout from "./pages/Auth/Logout";
 
-import { BrowserRouter, Route, NavLink, Switch } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
 import Modal from "./components/Modal/Modal";
 
@@ -33,23 +33,21 @@ function App() {
       {error ? (
         <Modal onClick={removeError}>{JSON.stringify(error)}</Modal>
       ) : null}
-      <main>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/game" exact>
-          <Game />
-        </Route>
-        <Route path="/auth" exact>
-          <Auth />
-        </Route>
-        <Route path="/auth/profile" exact>
-          <Profile />
-        </Route>
-        <Route path="/auth/logout" exact>
-          <Logout />
-        </Route>
-      </main>
+      <Route path="/" exact>
+        <Home />
+      </Route>
+      <Route path="/game" exact>
+        <Game />
+      </Route>
+      <Route path="/auth" exact>
+        <Auth />
+      </Route>
+      <Route path="/auth/profile" exact>
+        <Profile />
+      </Route>
+      <Route path="/auth/logout" exact>
+        <Logout />
+      </Route>
     </BrowserRouter>
   );
 }

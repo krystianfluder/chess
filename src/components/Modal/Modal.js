@@ -5,11 +5,13 @@ import Lightbox from "./Lightbox";
 const Modal = (props) => {
   return (
     <Lightbox onClick={props.onClick}>
-      <div className={styles.Modal}>
-        {props.children}
-        {/* <button onClick={props.onClick}>
-          <i class="material-icons">close</i>
-        </button> */}
+      <div className={styles.Wrapper}>
+        <div className={styles.Modal}>
+          <button onClick={props.onClick}>
+            <i class="material-icons">close</i>
+          </button>
+          {props.children}
+        </div>
       </div>
     </Lightbox>
   );

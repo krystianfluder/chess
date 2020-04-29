@@ -8,7 +8,7 @@ const Logout = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(authActions.logoutAsync());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

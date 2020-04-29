@@ -5,8 +5,6 @@ const initState = {
 
 const auth = (state = initState, action) => {
   switch (action.type) {
-    case types.check:
-      return { ...state, profile: action.profile };
     case types.logout:
       return { ...state, profile: null };
     case types.login:
