@@ -1,14 +1,30 @@
 import React from "react";
-// import ChessBoard from "./containers/ChessBoard";
-// import ChessControl from "./containers/ChessControl";
+import { useSelector } from "react-redux";
+import Figures from "./Figures";
+import Control from "./Control";
+import Dashboard from "./Dashboard";
+import "./Game.scss";
+import { Redirect } from "react-router-dom";
+import Board from "../../components/Game/Board";
 
 const Game = () => {
+  const profile = useSelector((state) => state.auth.profile);
+
   return (
-    <div className="game">
-      game
-      {/* <ChessBoard />
-      <ChessControl /> */}
-    </div>
+    <>
+      {profile ? (
+        <div className="game">
+          <div className="chess" style={{ position: "relative" }}>
+            <Figures />
+            <Board />
+          </div>
+          <Control />
+          <Dashboard />
+        </div>
+      ) : (
+        <Redirect to="/auth" />
+      )}
+    </>
   );
 };
 

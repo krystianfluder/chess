@@ -1,17 +1,17 @@
 import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Figure from "../components/Figure";
-import Field from "../components/Field";
-import boardBg from "../assets/img/boardBg.png";
-import { figuresActions } from "../actions";
-import findPosition from "../util/findPosition";
-
-const styles = {
-  backgroundImage: `url(${boardBg})`,
-  backgroundPosition: "center",
-  backgroundSize: "cover",
-  backgroundRepeat: "no-repeat",
-};
+import Figure from "../../components/Figure";
+import Field from "../../components/Field";
+import boardBg from "../../assets/img/boardBg.png";
+import { figuresActions } from "../../actions";
+import findPosition from "../../assets/js/findPosition";
+import Board from "../../components/Game/Board";
+// const styles = {
+//   backgroundImage: `url(${boardBg})`,
+//   backgroundPosition: "center",
+//   backgroundSize: "cover",
+//   backgroundRepeat: "no-repeat",
+// };
 
 const ChessBoard = () => {
   const boardRef = useRef();
@@ -45,7 +45,7 @@ const ChessBoard = () => {
     }
   };
   return (
-    <div className="board" style={styles} ref={boardRef} onClick={onMouseMove}>
+    <div className="figures" ref={boardRef} onClick={onMouseMove}>
       {figures.map((figure) => (
         <Field
           selected={selected}

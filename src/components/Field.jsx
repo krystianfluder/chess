@@ -1,11 +1,12 @@
 import React from "react";
-import positions from "../util/positions";
+import positions from "../assets/js/positions";
 
-function Field({ position, children, selected }) {
+const Field = ({ position, children, selected }) => {
+  console.log("render");
   if (selected === position) {
     return (
       <div
-        className="board__figure board__figure--active"
+        className="figures__figure figures__figure--active"
         style={positions[position]}
       >
         {children}
@@ -14,10 +15,10 @@ function Field({ position, children, selected }) {
   }
 
   return (
-    <div className="board__figure" style={positions[position]}>
+    <div className="figures__figure" style={positions[position]}>
       {children}
     </div>
   );
-}
+};
 
 export default Field;

@@ -9,23 +9,3 @@
 
 .control {
 }
-
-.board {
-  width: 100%;
-  padding-top: 100%;
-  position: relative;
-
-  &__figure {
-    z-index: 1;
-    position: absolute;
-    width: 12.5%;
-    height: 12.5%;
-    &--active {
-      background-color: red;
-    }
-  }
-}
-
-.game {
-  display: flex;
-}

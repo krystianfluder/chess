@@ -1,0 +1,9 @@
+.button {
+  background-color: gray;
+  border: none;
+  padding: 8px;
+
+  &--primary {
+    background-color: #ccc;
+  }
+}

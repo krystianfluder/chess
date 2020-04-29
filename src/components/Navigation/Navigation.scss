@@ -1,0 +1,30 @@
+@import "../../assets/styles/global.scss";
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &--list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    list-style-type: none;
+  }
+
+  &--item {
+    padding: 10px;
+  }
+
+  &--link {
+    text-decoration: none;
+    color: black;
+  }
+
+  @include mq(xsmall) {
+    &--list {
+      flex-direction: row;
+    }
+  }
+}

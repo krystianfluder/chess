@@ -1,0 +1,32 @@
+.figures {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+
+  &__figure {
+    z-index: 1;
+    position: absolute;
+    width: 12.5%;
+    height: 12.5%;
+    &--active {
+      background-color: red;
+    }
+  }
+}
+
+.game {
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  width: 50%;
+}
+
+.auth {
+  display: flex;
+}
+
+.chess {
+  width: 50%;
+}
