@@ -1,0 +1,13 @@
+.list-group {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+
+  &--secondary {
+    flex-direction: row;
+  }
+
+  &__list-group-item {
+    display: flex;
+  }
+}

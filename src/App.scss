@@ -4,8 +4,17 @@
   box-sizing: border-box;
 }
 
-.score {
+html,
+body,
+#root {
+  height: 100%;
 }
 
-.control {
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
 }

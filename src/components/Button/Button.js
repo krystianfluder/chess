@@ -2,22 +2,30 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./Button.scss";
 
-const Button = (props) => {
+const Button = ({ variant, onClick, type, disabled, children }) => {
+  const classes = ["button"];
+  if (variant === "secondary") {
+    classes.push("button--secondary");
+  }
+  if (variant === "close") {
+    classes.push("button--close");
+  }
+
   return (
     <button
-      className={["button", `button--${props.design}`].join(" ")}
-      onClick={props.onClick}
-      disabled={props.disabled}
-      type={props.type}
+      className={classes.join(" ")}
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
     >
-      {props.children}
+      {children}
     </button>
   );
 };
 
 Button.propTypes = {
   onClick: PropTypes.func,
-  design: PropTypes.string,
+  variant: PropTypes.string,
 };
 
 export default Button;

@@ -3,7 +3,13 @@
   border: none;
   padding: 8px;
 
-  &--primary {
-    background-color: #ccc;
+  &--secondary {
+    background-color: gray;
+  }
+
+  &--close {
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 }

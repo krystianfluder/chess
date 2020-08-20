@@ -1,17 +1,19 @@
 import React from "react";
 import "./Input.scss";
 
-const Input = (props) => {
-  const { onChange, onBlur, value, type, name } = props;
+const Input = ({ onChange, onBlur, value, type, name, label }) => {
   return (
-    <input
-      className={"input"}
-      type={type}
-      name={name}
-      onChange={onChange}
-      onBlur={onBlur}
-      value={value}
-    />
+    <label className="input">
+      {label}
+      <input
+        className={"input__element"}
+        type={type}
+        name={name}
+        onChange={onChange}
+        onBlur={onBlur}
+        value={value}
+      />
+    </label>
   );
 };
 

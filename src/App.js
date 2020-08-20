@@ -13,6 +13,8 @@ import Logout from "./pages/Auth/Logout";
 import { BrowserRouter, Route } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
 import Modal from "./components/Modal/Modal";
+import Container from "./components/Container/Container";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,25 +31,31 @@ function App() {
   }, [profile, error]);
   return (
     <BrowserRouter>
-      <Navigation />
-      {error ? (
-        <Modal onClick={removeError}>{JSON.stringify(error)}</Modal>
-      ) : null}
-      <Route path="/" exact>
-        <Home />
-      </Route>
-      <Route path="/game" exact>
-        <Game />
-      </Route>
-      <Route path="/auth" exact>
-        <Auth />
-      </Route>
-      <Route path="/auth/profile" exact>
-        <Profile />
-      </Route>
-      <Route path="/auth/logout" exact>
-        <Logout />
-      </Route>
+      <div className="content">
+        <Navigation />
+
+        <Container>
+          {error ? (
+            <Modal onClick={removeError}>{JSON.stringify(error)}</Modal>
+          ) : null}
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/game" exact>
+            <Game />
+          </Route>
+          <Route path="/auth" exact>
+            <Auth />
+          </Route>
+          <Route path="/auth/profile" exact>
+            <Profile />
+          </Route>
+          <Route path="/auth/logout" exact>
+            <Logout />
+          </Route>
+        </Container>
+      </div>
+      <Footer>lol</Footer>
     </BrowserRouter>
   );
 }

@@ -20,13 +20,13 @@ const Auth = (props) => {
       {profile ? (
         <Redirect to="/game" />
       ) : (
-        <div className="auth">
+        <>
           {loginMode ? (
             <Login toggleMode={toggleMode} />
           ) : (
             <Register toggleMode={toggleMode} />
           )}
-        </div>
+        </>
       )}
     </>
   );

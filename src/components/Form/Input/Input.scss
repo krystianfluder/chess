@@ -1,6 +1,11 @@
 .input {
-  border: 1px solid #ccc;
-  margin: 8px 0;
-  padding: 8px;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__element {
+    border: 1px solid #ccc;
+    margin: 8px 0;
+    padding: 8px;
+    width: 100%;
+  }
 }

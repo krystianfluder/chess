@@ -1,17 +1,15 @@
 import React from "react";
-import styles from "./Modal.module.css";
+import "./Modal.scss";
 import Lightbox from "./Lightbox";
 
-const Modal = (props) => {
+const Modal = ({ onClick, children, variant }) => {
   return (
-    <Lightbox onClick={props.onClick}>
-      <div className={styles.Wrapper}>
-        <div className={styles.Modal}>
-          <button onClick={props.onClick}>
-            <i class="material-icons">close</i>
-          </button>
-          {props.children}
-        </div>
+    <Lightbox onClick={onClick} variant={variant}>
+      <div className="modal">
+        <button className="button button--close" onClick={onClick}>
+          <i class="material-icons">close</i>
+        </button>
+        <div className="modal__body">{children}</div>
       </div>
     </Lightbox>
   );

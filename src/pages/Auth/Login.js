@@ -45,6 +45,7 @@ const Login = (props) => {
           <form onSubmit={handleSubmit}>
             <h1>Login</h1>
             <Input
+              label="Email"
               type="email"
               name="email"
               onChange={handleChange}
@@ -53,6 +54,7 @@ const Login = (props) => {
             />
             {errors.email && touched.email && errors.email}
             <Input
+              label="Password"
               type="password"
               name="password"
               onChange={handleChange}

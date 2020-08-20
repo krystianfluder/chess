@@ -1,10 +1,14 @@
 import React from "react";
-import styles from "./Lightbox.module.css";
+import "./Lightbox.scss";
 
-const Lightbox = (props) => {
+const Lightbox = ({ onClick, children, variant }) => {
+  const classes = ["lightbox"];
+  if (variant === "secondary") {
+    classes.push("lightbox--secondary");
+  }
   return (
-    <div onClick={props.onClick} className={styles.Lightbox}>
-      {props.children}
+    <div onClick={onClick} className={classes.join(" ")}>
+      {children}
     </div>
   );
 };
