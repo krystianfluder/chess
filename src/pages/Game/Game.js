@@ -8,22 +8,22 @@ import { Redirect } from "react-router-dom";
 import Board from "../../components/Game/Board/Board";
 
 const Game = () => {
-  const profile = useSelector((state) => state.auth.profile);
+  // const profile = useSelector((state) => state.auth.profile);
 
   return (
     <>
-      {profile ? (
-        <div className="game">
-          <div className="chess" style={{ position: "relative" }}>
-            <Figures />
-            <Board />
-          </div>
-          <Control />
-          <Dashboard />
+      {/* {profile ? ( */}
+      <div className="game">
+        <div className="chess" style={{ position: "relative" }}>
+          <Figures />
+          <Board />
         </div>
-      ) : (
+        <Control />
+        <Dashboard />
+      </div>
+      {/* ) : (
         <Redirect to="/auth" />
-      )}
+      )} */}
     </>
   );
 };

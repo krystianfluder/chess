@@ -8,7 +8,7 @@ const Footer = ({ children }) => {
   return (
     <footer className="footer">
       <ListGroup>
-        <ListGroupItem>test</ListGroupItem>
+        <ListGroupItem active>test2</ListGroupItem>
         <ListGroupItem>test</ListGroupItem>
         <ListGroupItem>test</ListGroupItem>
       </ListGroup>

@@ -18,3 +18,19 @@ $breakpoints: (
     min-width: 1440px,
   ),
 );
+
+$primary-background: linear-gradient(
+  90deg,
+  rgba(70, 4, 122, 1) 0%,
+  rgba(17, 0, 24, 1) 100%
+);
+
+$primary-color: white;
+
+$secondary-background: linear-gradient(
+  90deg,
+  rgba(245, 107, 0, 1) 0%,
+  rgba(185, 4, 123, 1) 100%
+);
+
+$secondary-color: white;

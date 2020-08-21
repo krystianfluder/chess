@@ -3,9 +3,13 @@ import "./ListGroup.scss";
 
 const ListGroup = ({ children, variant, disabled }) => {
   const classes = ["list-group"];
-  if (variant === "secondary") {
-    classes.push("list-group--secondary");
+  // vertical
+  if (!variant || variant === "vertical") {
+    classes.push("list-group--vertical");
+  } else if (variant === "horizontal") {
+    classes.push("list-group--horizontal");
   }
+
   if (disabled === true) {
     classes.push("disabled");
   }
