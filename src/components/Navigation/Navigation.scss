@@ -1,7 +1,9 @@
 @import "../../assets/styles/global.scss";
 
 .navigation {
-  display: sticky;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid gray;
 
   &__list {
     display: flex;
@@ -37,14 +39,4 @@
   &__link:hover {
     text-decoration: underline;
   }
-
-  // @include mq(xsmall) {
-
-  //   &__item {
-  //     display: flex;
-  //   }
-  //   &--burger {
-  //     display: none;
-  //   }
-  // }
 }

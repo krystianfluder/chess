@@ -9,21 +9,19 @@ const Navigation = () => {
   return (
     <nav className="navigation">
       <List variant="horizontal">
-        <List variant="horizontal">
-          <li
-            className="navigation__item navigation__item--burger"
-            onClick={() => setModal(true)}
-          >
-            <i className="material-icons">menu</i>
-          </li>
-        </List>
-        <List variant="horizontal" active>
-          <Item to="/">Home</Item>
-          <Item to="/game">Game</Item>
-          <Item to="/auth">Auth</Item>
-          <Item to="/auth/profile">Profile</Item>
-          <Item to="/auth/logout">Logout</Item>
-        </List>
+        <li
+          className="navigation__item navigation__item--burger"
+          onClick={() => setModal(true)}
+        >
+          <i className="material-icons">menu</i>
+        </li>
+      </List>
+      <List variant="horizontal" active>
+        <Item to="/">Home</Item>
+        <Item to="/game">Game</Item>
+        <Item to="/auth">Auth</Item>
+        <Item to="/auth/profile">Profile</Item>
+        <Item to="/auth/logout">Logout</Item>
       </List>
 
       {modal ? (
@@ -37,7 +35,6 @@ const Navigation = () => {
           </List>
         </Modal>
       ) : null}
-      <hr />
     </nav>
   );
 };

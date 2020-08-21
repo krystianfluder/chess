@@ -33,7 +33,6 @@ function App() {
     <BrowserRouter>
       <div className="content">
         <Navigation />
-
         <Container>
           {error ? (
             <Modal onClick={removeError}>{JSON.stringify(error)}</Modal>

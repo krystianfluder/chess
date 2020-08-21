@@ -1,15 +1,74 @@
-.button {
-  background-color: gray;
+@mixin arrow-after {
+  &::after {
+    content: "";
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 6px;
+    margin-left: 5px;
+    transform: rotate(-45deg);
+  }
+}
+
+.btn {
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  text-transform: uppercase;
   border: none;
-  padding: 8px;
+  padding: 10px 20px;
+  margin: 10px 0;
+
+  &--primary {
+    background: rgb(245, 107, 0);
+    background: linear-gradient(
+      90deg,
+      rgba(245, 107, 0, 1) 0%,
+      rgba(185, 4, 123, 1) 100%
+    );
+
+    @include arrow-after();
+  }
 
   &--secondary {
-    background-color: gray;
+    background: rgb(70, 4, 122);
+    background: linear-gradient(
+      90deg,
+      rgba(70, 4, 122, 1) 0%,
+      rgba(17, 0, 24, 1) 100%
+    );
+
+    @include arrow-after();
   }
 
   &--close {
     position: absolute;
+    margin: 0;
+    padding: 0;
     right: 0;
     top: 0;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+
+    &::before,
+    &::after {
+      position: absolute;
+      left: 15px;
+      content: " ";
+      height: 33px;
+      width: 2px;
+      background-color: #333;
+    }
+    &::before {
+      transform: rotate(45deg);
+    }
+    &::after {
+      transform: rotate(-45deg);
+    }
   }
 }

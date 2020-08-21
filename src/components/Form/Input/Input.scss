@@ -1,11 +1,22 @@
 .input {
   display: flex;
   flex-direction: column;
+  padding: 10px 0;
 
   &__element {
-    border: 1px solid #ccc;
+    border: 1px solid gray;
     margin: 8px 0;
-    padding: 8px;
+    padding: 16px;
     width: 100%;
+
+    // &--invalid {
+    //   border: 2px solid red;
+    // }
+  }
+
+  &__error-message {
+    // color: red;
+    text-transform: uppercase;
+    // font-weight: bold;
   }
 }

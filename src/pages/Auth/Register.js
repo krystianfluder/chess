@@ -2,8 +2,11 @@ import React from "react";
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../actions";
-import Button from "../../components/Button/Button";
 import Input from "../../components/Form/Input/Input";
+import * as Yup from "yup";
+
+import Button from "../../components/Button/Button";
+import Link from "../../components/Link/Link";
 
 const Register = (props) => {
   const dispatch = useDispatch();
@@ -12,17 +15,10 @@ const Register = (props) => {
     <>
       <Formik
         initialValues={{ email: "test@test.com", password: "1qazxsW@" }}
-        validate={(values) => {
-          const errors = {};
-          if (!values.email) {
-            errors.email = "Required";
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = "Invalid email address";
-          }
-          return errors;
-        }}
+        validationSchema={Yup.object().shape({
+          email: Yup.string().email().required("Required"),
+          password: Yup.string().min(8, "Too Short!").required("Required"),
+        })}
         onSubmit={(values, { setSubmitting }) => {
           dispatch(
             authActions.registerAsync({
@@ -42,30 +38,37 @@ const Register = (props) => {
           handleSubmit,
           isSubmitting,
         }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} novalidate>
             <h1>Register</h1>
             <Input
+              placeholder="Enter Email"
               label="Email"
               type="email"
               name="email"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.email}
+              errorMessage={errors.email && touched.email && errors.email}
             />
-            {errors.email && touched.email && errors.email}
             <Input
+              placeholder="Password"
               label="Password"
               type="password"
               name="password"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
+              errorMessage={
+                errors.password && touched.password && errors.password
+              }
             />
-            {errors.password && touched.password && errors.password}
             <Button type="submit" disabled={isSubmitting}>
               Submit
             </Button>
-            <Button onClick={props.toggleMode}>Toggle mode</Button>
+            <Button onClick={props.toggleMode} variant="secondary">
+              Toggle mode
+            </Button>
+            <Link to="/">Home</Link>
           </form>
         )}
       </Formik>

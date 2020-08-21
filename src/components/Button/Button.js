@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 import "./Button.scss";
 
 const Button = ({ variant, onClick, type, disabled, children }) => {
-  const classes = ["button"];
-  if (variant === "secondary") {
-    classes.push("button--secondary");
-  }
-  if (variant === "close") {
-    classes.push("button--close");
+  const classes = ["btn"];
+  // variant
+  if (!variant || variant === "primary") {
+    classes.push("btn--primary");
+  } else if (variant === "secondary") {
+    classes.push("btn--secondary");
+  } else if (variant === "close") {
+    classes.push("btn--close");
   }
 
   return (
