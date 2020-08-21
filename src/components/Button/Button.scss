@@ -17,7 +17,7 @@
   font-size: 15px;
   font-weight: bold;
   color: white;
-  display: flex;
+  // display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
@@ -25,6 +25,11 @@
   border: none;
   padding: 10px 20px;
   margin: 10px 0;
+  margin-right: 10px;
+
+  &:last-child {
+    margin: 10px 0;
+  }
 
   &:disabled {
     color: gray;
@@ -48,8 +53,8 @@
     position: absolute;
     margin: 0;
     padding: 0;
-    right: 0;
-    top: 0;
+    right: 32px;
+    top: 32px;
     width: 32px;
     height: 32px;
     opacity: 0.3;

@@ -6,7 +6,7 @@ const Modal = ({ onClick, children, variant }) => {
   return (
     <Lightbox onClick={onClick} variant={variant}>
       <div className="modal">
-        <button className="button button--close" onClick={onClick}></button>
+        <button className="btn btn--close" onClick={onClick}></button>
         <div className="modal__body">{children}</div>
       </div>
     </Lightbox>

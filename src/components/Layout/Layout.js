@@ -8,7 +8,12 @@ const Layout = ({ children, title, description }) => {
   useEffect(() => {
     document.title = title;
   }, [title, description]);
-  return <main className="layout">{children}</main>;
+  return (
+    <main className="layout">
+      <h1>{title}</h1>
+      {children}
+    </main>
+  );
 };
 
 Layout.propTypes = {

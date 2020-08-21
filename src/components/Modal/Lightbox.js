@@ -6,6 +6,7 @@ const Lightbox = ({ onClick, children, variant }) => {
   if (variant === "secondary") {
     classes.push("lightbox--secondary");
   }
+
   return (
     <div onClick={onClick} className={classes.join(" ")}>
       {children}
