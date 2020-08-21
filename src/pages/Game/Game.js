@@ -5,6 +5,7 @@ import Dashboard from "./Dashboard";
 import "./Game.scss";
 // import { Redirect } from "react-router-dom";
 import ChessBoard from "./ChessBoard/ChessBoard";
+import Layout from "../../components/Layout/Layout";
 
 const Game = () => {
   // const profile = useSelector((state) => state.auth.profile);
@@ -12,11 +13,15 @@ const Game = () => {
   return (
     <>
       {/* {profile ? ( */}
-      <div className="game">
-        <ChessBoard />
-        <Control />
-        <Dashboard />
-      </div>
+      <Layout title="Game">
+        <div className="game">
+          <ChessBoard />
+          <div className="game__info">
+            <Control />
+            <Dashboard />
+          </div>
+        </div>
+      </Layout>
       {/* ) : (
         <Redirect to="/auth" />
       )} */}

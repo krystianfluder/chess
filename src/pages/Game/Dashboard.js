@@ -1,4 +1,6 @@
 import React from "react";
+import ListGroup from "../../components/ListGroup/ListGroup";
+import ListGroupItem from "../../components/ListGroup/ListGroupItem";
 import { useSelector } from "react-redux";
 
 const ChessDashboard = () => {
@@ -9,11 +11,13 @@ const ChessDashboard = () => {
   const playerTwoFigures = figures.filter((item) => item.playerOne !== true);
 
   return (
-    <div className="game_dashboard">
+    <div className="game__dashboard">
       <h2>Dashboard</h2>
-      Total: {figures ? figures.length : null}
-      One: {playerOneFigures.length}
-      Two: {playerTwoFigures.length}
+      <ListGroup>
+        <ListGroupItem>Total: {figures ? figures.length : null}</ListGroupItem>
+        <ListGroupItem>One: {playerOneFigures.length}</ListGroupItem>
+        <ListGroupItem>Two: {playerTwoFigures.length}</ListGroupItem>
+      </ListGroup>
     </div>
   );
 };

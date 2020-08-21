@@ -1,9 +1,9 @@
 import React from "react";
-import Button from "../../components/Button/Button";
+import Layout from "../../components/Layout/Layout";
 
 const Home = () => {
   return (
-    <>
+    <Layout title="Home">
       <p>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
@@ -114,7 +114,7 @@ const Home = () => {
         with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
       </p>
-    </>
+    </Layout>
   );
 };
 

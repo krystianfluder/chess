@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import "./Auth.scss";
 import Login from "./Login";
 import Register from "./Register";
+import Layout from "../../components/Layout/Layout";
 
 const Auth = (props) => {
   const profile = useSelector((state) => state.auth.profile);
@@ -16,7 +17,7 @@ const Auth = (props) => {
   };
 
   return (
-    <>
+    <Layout title="Auth">
       {profile ? (
         <Redirect to="/game" />
       ) : (
@@ -28,7 +29,7 @@ const Auth = (props) => {
           )}
         </>
       )}
-    </>
+    </Layout>
   );
 };
 
