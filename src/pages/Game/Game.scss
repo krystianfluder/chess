@@ -1,21 +1,5 @@
 @import "../../assets/styles/global.scss";
 
-.figures {
-  width: 100%;
-  padding-top: 100%;
-  position: relative;
-
-  &__figure {
-    z-index: 1;
-    position: absolute;
-    width: 12.5%;
-    height: 12.5%;
-    &--active {
-      background-color: red;
-    }
-  }
-}
-
 .game {
   display: flex;
   align-items: center;
@@ -27,33 +11,47 @@
     flex-direction: row;
     justify-content: space-evenly;
   }
-}
 
-.control {
-  width: 100%;
-  @include mq(medium) {
-    width: 20%;
+  &__chess {
+    position: relative;
+    width: 100%;
+    @include mq(medium) {
+      width: 50%;
+    }
+    @include mq(large) {
+      width: 40%;
+      margin: 0 auto;
+    }
   }
-}
 
-.dashboard {
-  width: 100%;
-  @include mq(medium) {
-    width: 20%;
+  &__control {
+    width: 100%;
+    @include mq(medium) {
+      width: 20%;
+    }
   }
-}
 
-.auth {
-  display: flex;
-}
-
-.chess {
-  width: 100%;
-  @include mq(medium) {
-    width: 50%;
+  &__dashboard {
+    width: 100%;
+    @include mq(medium) {
+      width: 20%;
+    }
   }
-  @include mq(large) {
-    width: 40%;
-    margin: 0 auto;
+
+  &__figures {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+  }
+
+  &__figure {
+    z-index: 1;
+    position: absolute;
+    width: 12.5%;
+    height: 12.5%;
+
+    &--active {
+      background-color: red;
+    }
   }
 }

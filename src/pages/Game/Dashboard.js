@@ -9,7 +9,7 @@ const ChessDashboard = () => {
   const playerTwoFigures = figures.filter((item) => item.playerOne !== true);
 
   return (
-    <div className="dashboard">
+    <div className="game_dashboard">
       <h2>Dashboard</h2>
       Total: {figures ? figures.length : null}
       One: {playerOneFigures.length}

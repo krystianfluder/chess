@@ -1,6 +1,13 @@
 import React from "react";
 
-import { Bishop, King, Knight, Pawn, Queen, Rook } from "./figures";
+import {
+  Bishop,
+  King,
+  Knight,
+  Pawn,
+  Queen,
+  Rook,
+} from "../../../components/Game/Figures";
 
 function Figure({ figure, playerOne }) {
   const classicBlack = {

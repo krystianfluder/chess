@@ -1,12 +1,12 @@
 import React from "react";
-import positions from "../assets/js/positions";
+import positions from "../../../assets/js/positions";
 
 const Field = ({ position, children, selected }) => {
   console.log("render");
   if (selected === position) {
     return (
       <div
-        className="figures__figure figures__figure--active"
+        className="game__figure game__figure--active"
         style={positions[position]}
       >
         {children}
@@ -15,7 +15,7 @@ const Field = ({ position, children, selected }) => {
   }
 
   return (
-    <div className="figures__figure" style={positions[position]}>
+    <div className="game__figure" style={positions[position]}>
       {children}
     </div>
   );

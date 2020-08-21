@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Figure from "../../components/Figure";
-import Field from "../../components/Field";
-import { figuresActions } from "../../actions";
-import findPosition from "../../assets/js/findPosition";
+import Figure from "./Figure";
+import Field from "./Field";
+import { figuresActions } from "../../../actions";
+import findPosition from "../../../assets/js/findPosition";
 
-const ChessBoard = () => {
+const Figures = () => {
   const boardRef = useRef();
   const dispatch = useDispatch();
   const figures = useSelector((state) => state.figures.present.items);
@@ -37,7 +37,7 @@ const ChessBoard = () => {
     }
   };
   return (
-    <div className="figures" ref={boardRef} onClick={onMouseMove}>
+    <div className="game__figures" ref={boardRef} onClick={onMouseMove}>
       {figures.map((figure) => (
         <Field
           selected={selected}
@@ -55,4 +55,4 @@ const ChessBoard = () => {
   );
 };
 
-export default ChessBoard;
+export default Figures;

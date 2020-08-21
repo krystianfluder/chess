@@ -11,7 +11,7 @@ const ChessControl = () => {
   const redo = () => dispatch({ type: "FIGURES_REDO" });
 
   return (
-    <div className="control">
+    <div className="game__control">
       <h2>Controls</h2>
       <Button onClick={undo} design="primary" disabled={!canUndo}>
         UNDO
