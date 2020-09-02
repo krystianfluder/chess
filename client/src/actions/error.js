@@ -2,14 +2,14 @@ import { errorTypes } from "../types";
 
 const set = (error) => {
   return {
-    type: errorTypes.set,
+    type: errorTypes.ERROR_SET,
     error,
   };
 };
 
 const remove = () => {
   return {
-    type: errorTypes.remove,
+    type: errorTypes.ERROR_HIDE,
   };
 };
 

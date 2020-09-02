@@ -19,8 +19,7 @@
   },
   "homepage": "https://github.com/krystianfluder/chess#readme",
   "dependencies": {
-    "concurrently": "^5.3.0",
-    "immer": "^7.0.7"
+    "concurrently": "^5.3.0"
   },
   "devDependencies": {}
 }

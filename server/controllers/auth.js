@@ -24,13 +24,11 @@ const {
 const handleMessage = (message) => {
   return { message };
 };
-const handleMessageChangePassword = handleMessage(
-  "Password changed successfully"
-);
-const handleMessageReset = handleMessage(
-  "Code for changing the password has been sent to the email"
-);
-const handleMessageLogout = handleMessage("User logged out successfully");
+const handleMessageChangePassword = () =>
+  handleMessage("Password changed successfully");
+const handleMessageReset = () =>
+  handleMessage("Code for changing the password has been sent to the email");
+const handleMessageLogout = () => handleMessage("User logged out successfully");
 const handleMessageRegister = () =>
   handleMessage("User created in successfully");
 const handleMessageLogin = () => handleMessage("User logged in successfully");
