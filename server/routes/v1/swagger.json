@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Rest API /v1",
+    "description": "API /v1",
     "version": "1.0.0",
     "title": "Chess BACKEND",
     "termsOfService": "http://swagger.io/terms/",
@@ -19,6 +19,10 @@
     {
       "name": "newsletter",
       "description": "newsletter"
+    },
+    {
+      "name": "profile",
+      "description": "profile"
     }
   ],
   "schemes": ["http"],
@@ -45,6 +49,9 @@
           "200": {
             "description": "User logged in successfully"
           },
+          "400": {
+            "description": "Email or password is incorrect"
+          },
           "422": {
             "description": "Validation failed, entered data is incorrect"
           }
@@ -56,7 +63,6 @@
         "tags": ["auth"],
         "summary": "Sign up",
         "description": "Register",
-        "operationId": "addPet",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -74,8 +80,11 @@
           "200": {
             "description": "User created in successfully"
           },
+          "400": {
+            "description": "Email does not exist"
+          },
           "422": {
-            "description": "Validation failed, entered data is incorrect"
+            "description": "Validation failed, entered data is incorrect || Email exists"
           }
         }
       }
@@ -95,7 +104,7 @@
             "description": "The token must be provided"
           },
           "401": {
-            "description": "The token is invalid or has expired"
+            "description": "The token is invalid or has expired || Refresh token does not exist"
           }
         },
         "security": [
@@ -121,6 +130,9 @@
           },
           "401": {
             "description": "The token is invalid or has expired"
+          },
+          "404": {
+            "description": "Not found refresh tokens"
           }
         },
         "security": [
@@ -158,8 +170,11 @@
           "200": {
             "description": "Code for changing the password has been sent to the email"
           },
+          "400": {
+            "description": "Email does not exist"
+          },
           "422": {
-            "description": "Validation failed, entered data is incorrect || Email does not exist"
+            "description": "Validation failed, entered data is incorrect"
           }
         }
       }
@@ -257,11 +272,8 @@
           "200": {
             "description": "User logged out successfully"
           },
-          "400": {
-            "description": "The token must be provided"
-          },
           "401": {
-            "description": "The token must be provided or token blacklisted"
+            "description": "Incorrect refresh token or not provided"
           }
         }
       }
@@ -300,6 +312,31 @@
           },
           "422": {
             "description": "Validation failed, entered data is incorrect"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/profile": {
+      "get": {
+        "tags": ["profile"],
+        "summary": "Status",
+        "description": "Fetched profile",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Fetched profile"
+          },
+          "400": {
+            "description": "The token must be provided"
+          },
+          "401": {
+            "description": "The token is invalid or has expired"
           }
         },
         "security": [

@@ -22,20 +22,23 @@ exports.handleErrorTokenInvalidOrExpired = () =>
 // refresh token
 
 exports.handleErrorIncorrectRefreshToken = () =>
-  handleError("Incorrect refresh token", 401);
+  handleError("Incorrect refresh token or not provided", 401);
 
 exports.handleErrorRefreshTokenNotExists = () =>
-  handleError("Refresh token does not exist", 422);
+  handleError("Refresh token does not exist", 401);
+
+exports.handleErrorNotFoundRefreshTokens = () =>
+  handleError("Not found refresh tokens", 404);
 
 // register login
 
-exports.handleErrorUserExists = () => handleError("Email exists", 422);
+exports.handleErrorUserExists = () => handleError("Email exists", 400);
 
 exports.handleErrorEmailNotExists = () =>
-  handleError("Email does not exist", 401);
+  handleError("Email does not exist", 400);
 
 exports.handleErrorEmailOrPasswordIncorrect = () =>
-  handleError("Email or password is incorrect", 401);
+  handleError("Email or password is incorrect", 400);
 
 // reset account
 

@@ -9,13 +9,14 @@ const { createAccessToken, createRefreshToken } = require("../util/token");
 const { getIpAndAgent } = require("../util/information");
 const {
   handleErrorValidationFailed,
-  handleError,
   handleErrorUserExists,
   handleErrorTokenInvalidOrExpired,
   handleErrorCodeInvalidOrExpired,
   handleErrorEmailNotExists,
   handleErrorEmailOrPasswordIncorrect,
   handleErrorRefreshTokenNotExists,
+  handleErrorNotFoundRefreshTokens,
+  handleErrorIncorrectRefreshToken,
 } = require("../util/errors");
 
 // messages
@@ -217,7 +218,7 @@ exports.logoutAll = async (req, res, next) => {
   });
 
   if (!refreshTokens) {
-    return next(handleErrorRefreshTokenNotExists());
+    return next(handleErrorNotFoundRefreshTokens());
   }
 
   refreshTokens.forEach(async (token) => {
