@@ -48,6 +48,15 @@
     @include arrow-after();
   }
 
+  &--link {
+    color: black;
+    background: transparent;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   &--close {
     position: absolute;
     background-color: transparent;

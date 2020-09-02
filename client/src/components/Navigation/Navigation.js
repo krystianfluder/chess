@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Navigation.scss";
-import Item from "./Item";
 import List from "./List";
 import Modal from "../Modal/Modal";
 

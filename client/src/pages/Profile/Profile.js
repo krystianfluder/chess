@@ -17,9 +17,9 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    dispatch(authActions.asyncFetchProfile(accessToken));
     dispatch(authActions.fetchTokensAsync());
-  }, []);
+    dispatch(authActions.asyncFetchProfile(accessToken));
+  }, [dispatch, accessToken]);
 
   return (
     <Layout title="Profile" description="short description">

@@ -41,14 +41,8 @@ const refreshTokenAsync = (accessToken, refreshToken) => {
 };
 
 const asyncFetchProfile = () => {
-  return async (dispatch, getState) => {
-    const state = getState();
-    const response = await axiosRefreshToken.get("/profile", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + state.auth.accessToken,
-      },
-    });
+  return async (dispatch) => {
+    const response = await axiosRefreshToken.get("/profile");
     if (response) {
       const { profile } = response.data;
       dispatch(fetchProfile(profile));
@@ -71,14 +65,8 @@ const fetchTokens = (tokens) => {
 };
 
 const fetchTokensAsync = () => {
-  return async (dispatch, getState) => {
-    const state = getState();
-    const response = await axiosRefreshToken.get("/auth/status", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + state.auth.accessToken,
-      },
-    });
+  return async (dispatch) => {
+    const response = await axiosRefreshToken.get("/auth/status");
     if (response) {
       dispatch(fetchTokens(response.data.refreshTokens));
     }
@@ -112,18 +100,18 @@ const logoutAsync = () => {
   };
 };
 
-const logoutAllAsync = (accessToken) => {
+const logoutAsyncRemote = (refreshToken) => {
   return async (dispatch) => {
-    const response = await axiosRefreshToken.post(
-      "/auth/logout-all",
-      {},
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + accessToken,
-        },
-      }
-    );
+    await axiosRefreshToken.post("/auth/logout", {
+      token: refreshToken,
+    });
+    dispatch(logoutAsync());
+  };
+};
+
+const logoutAllAsync = () => {
+  return async (dispatch) => {
+    const response = await axiosRefreshToken.post("/auth/logout-all");
 
     if (response) {
       const { data, status } = response;
@@ -187,4 +175,5 @@ export default {
   refreshTokenAsync,
   logoutAllAsync,
   fetchTokensAsync,
+  logoutAsyncRemote,
 };

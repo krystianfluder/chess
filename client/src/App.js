@@ -70,7 +70,7 @@ function App() {
           </Route>
         </Switch>
       </div>
-      <Footer>lol</Footer>
+      <Footer />
     </BrowserRouter>
   );
 }

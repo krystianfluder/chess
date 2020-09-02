@@ -2,7 +2,6 @@ import React from "react";
 import positions from "../../../assets/js/positions";
 
 const Field = ({ position, children, selected }) => {
-  console.log("render");
   if (selected === position) {
     return (
       <div

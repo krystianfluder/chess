@@ -8,10 +8,16 @@ const axios = require("axios");
 
 const axiosRefreshToken = axios.create({
   baseURL: BACKEND_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 const axiosDefault = axios.create({
   baseURL: BACKEND_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 axiosDefault.interceptors.response.use(
@@ -39,6 +45,13 @@ axiosDefault.interceptors.response.use(
     }
   }
 );
+
+axiosRefreshToken.interceptors.request.use(function (config) {
+  const accessToken = reduxStore.getState().auth.accessToken;
+  config.headers.Authorization = `Bearer ${accessToken}`;
+
+  return config;
+});
 
 axiosRefreshToken.interceptors.response.use(
   (response) => {

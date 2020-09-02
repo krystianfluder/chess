@@ -5,11 +5,18 @@
   align-items: center;
   flex-direction: column;
 
+  @include mq(large) {
+    flex-direction: row;
+  }
+
   &__chess {
     position: relative;
     width: 100%;
     @include mq(medium) {
       width: 70%;
+    }
+    @include mq(large) {
+      width: 50%;
     }
   }
 
@@ -21,6 +28,12 @@
 
     @include mq(medium) {
       flex-direction: row;
+    }
+
+    @include mq(large) {
+      padding-left: 20px;
+      flex-direction: column;
+      width: 50%;
     }
   }
 

@@ -96,6 +96,24 @@
         "description": "Logout",
         "consumes": ["application/json"],
         "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "format": "string",
+                  "description": "refresh token"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "User logged out successfully"

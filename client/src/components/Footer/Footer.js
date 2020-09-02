@@ -1,17 +1,20 @@
 import React from "react";
+import { IoLogoFacebook, IoLogoInstagram, IoLogoTwitter } from "react-icons/io";
 import "./Footer.scss";
+import Link from "../../components/Link/Link";
 
-import ListGroup from "../../components/ListGroup/ListGroup";
-import ListGroupItem from "../../components/ListGroup/ListGroupItem";
-
-const Footer = ({ children }) => {
+const Footer = () => {
   return (
     <footer className="footer">
-      <ListGroup>
-        <ListGroupItem active>test2</ListGroupItem>
-        <ListGroupItem>test</ListGroupItem>
-        <ListGroupItem>test</ListGroupItem>
-      </ListGroup>
+      <Link href="https://facebook.com/">
+        <IoLogoFacebook size={32} />
+      </Link>
+      <Link href="https://www.instagram.com/">
+        <IoLogoInstagram size={32} />
+      </Link>
+      <Link href="https://twitter.com/">
+        <IoLogoTwitter size={32} />
+      </Link>
     </footer>
   );
 };
