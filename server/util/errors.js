@@ -6,18 +6,38 @@ const handleError = (message, status) => {
 
 exports.handleError = handleError;
 
-exports.handleErrorTokenBlacklisted = () =>
-  handleError("Token blacklisted. Cannot use this token.", 401);
-
-exports.handleErrorWithoutToken = () =>
-  handleError("The token must be provided", 401);
+// validation
 
 exports.handleErrorValidationFailed = () =>
   handleError("Validation failed, entered data is incorrect", 422);
 
-exports.handleErrorNotFoundUser = () => handleError("Not found user", 404);
+// access token
 
-exports.handleErrorUserExists = () => handleError("Email exists", 422);
+exports.handleErrorWithoutToken = () =>
+  handleError("The token must be provided", 400);
 
 exports.handleErrorTokenInvalidOrExpired = () =>
   handleError("The token is invalid or has expired", 401);
+
+// refresh token
+
+exports.handleErrorIncorrectRefreshToken = () =>
+  handleError("Incorrect refresh token", 401);
+
+exports.handleErrorRefreshTokenNotExists = () =>
+  handleError("Refresh token does not exist", 422);
+
+// register login
+
+exports.handleErrorUserExists = () => handleError("Email exists", 422);
+
+exports.handleErrorEmailNotExists = () =>
+  handleError("Email does not exist", 401);
+
+exports.handleErrorEmailOrPasswordIncorrect = () =>
+  handleError("Email or password is incorrect", 401);
+
+// reset account
+
+exports.handleErrorCodeInvalidOrExpired = () =>
+  handleError("The code is invalid or expired", 401);

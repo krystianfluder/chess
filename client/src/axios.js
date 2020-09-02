@@ -24,7 +24,15 @@ axiosDefault.interceptors.response.use(
 
     if (response) {
       const { message } = response.data;
-      dispatch(errorsActions.set(message));
+      const { url } = response.config;
+      if (
+        url === `${BACKEND_URL}/auth/login` ||
+        url === `${BACKEND_URL}/auth/register`
+      ) {
+        dispatch(authActions.createErrorMessage(message));
+      } else {
+        dispatch(errorsActions.set(message));
+      }
       return response;
     } else {
       dispatch(errorsActions.set(error.message));

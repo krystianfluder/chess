@@ -1,7 +1,7 @@
-const set = "ERROR_SET";
-const remove = "ERROR_HIDE";
+const ERROR_SET = "ERROR_SET";
+const ERROR_HIDE = "ERROR_HIDE";
 
 export default {
-  set,
-  remove,
+  ERROR_SET,
+  ERROR_HIDE,
 };

@@ -5,26 +5,37 @@ const User = require("../models/user");
 const RefreshToken = require("../models/refresh-token");
 const { v4 } = require("uuid");
 const { transporter } = require("../config/mails");
-const useragent = require("useragent");
+const { createAccessToken, createRefreshToken } = require("../util/token");
+const { getIpAndAgent } = require("../util/information");
 const {
   handleErrorValidationFailed,
   handleError,
   handleErrorUserExists,
   handleErrorTokenInvalidOrExpired,
+  handleErrorCodeInvalidOrExpired,
+  handleErrorEmailNotExists,
+  handleErrorEmailOrPasswordIncorrect,
+  handleErrorRefreshTokenNotExists,
 } = require("../util/errors");
 
-const { createAccessToken, createRefreshToken } = require("../util/token");
+// messages
 
-const getIpAndAgent = (req) => {
-  const ip =
-    (req.headers["x-forwarded-for"] || "").split(",").pop().trim() ||
-    req.connection.remoteAddress ||
-    req.socket.remoteAddress ||
-    req.connection.socket.remoteAddress;
-
-  const agent = { ...useragent.parse(req.headers["user-agent"]) };
-  return [ip, agent];
+const handleMessage = (message) => {
+  return { message };
 };
+const handleMessageChangePassword = handleMessage(
+  "Password changed successfully"
+);
+const handleMessageReset = handleMessage(
+  "Code for changing the password has been sent to the email"
+);
+const handleMessageLogout = handleMessage("User logged out successfully");
+const handleMessageRegister = () =>
+  handleMessage("User created in successfully");
+const handleMessageLogin = () => handleMessage("User logged in successfully");
+const handleMessageRefreshToken = () =>
+  handleMessage("Token refreshed successfully");
+const handleMessageGetStatus = () => handleMessage("List of logged in devices");
 
 exports.getStatus = async (req, res, next) => {
   const refreshTokens = await RefreshToken.find({
@@ -34,7 +45,7 @@ exports.getStatus = async (req, res, next) => {
     .select("ip useragent createdAt updatedAt");
 
   res.json({
-    message: "List of logged in devices",
+    ...handleMessageGetStatus(),
     refreshTokens,
   });
 };
@@ -45,7 +56,7 @@ exports.refreshToken = async (req, res, next) => {
   }).select("token");
 
   if (!last) {
-    return next(handleError("Incorrect refresh token", 401));
+    return next(handleErrorIncorrectRefreshToken());
   }
 
   let parsePayload = null;
@@ -82,7 +93,7 @@ exports.refreshToken = async (req, res, next) => {
   ]);
 
   res.json({
-    message: "Token refreshed successfully",
+    ...handleMessageRefreshToken,
     accessToken: accessToken,
     refreshToken: refreshToken,
   });
@@ -103,12 +114,12 @@ exports.login = async (req, res, next) => {
     .lean();
 
   if (!user) {
-    return next(handleError("Email or password is incorrect", 401));
+    return next(handleErrorEmailOrPasswordIncorrect());
   }
 
   const match = await bcrypt.compare(password, user.password);
   if (!match) {
-    return next(handleError("Email or password is incorrect", 401));
+    return next(handleErrorEmailOrPasswordIncorrect());
   }
 
   const [ip, agent] = getIpAndAgent(req);
@@ -125,7 +136,7 @@ exports.login = async (req, res, next) => {
   }).save();
 
   res.json({
-    message: "User logged in successfully",
+    ...handleMessageLogin(),
     accessToken: accessToken,
     refreshToken: refreshToken,
   });
@@ -170,7 +181,7 @@ exports.register = async (req, res, next) => {
   }).save();
 
   res.json({
-    message: "User created in successfully",
+    ...handleMessageRegister(),
     accessToken: accessToken,
     refreshToken: refreshToken,
   });
@@ -182,7 +193,7 @@ exports.logout = async (req, res, next) => {
   const token = req.body.token;
 
   if (!token) {
-    return next(handleError("Refresh token does not exist", 422));
+    return next(handleErrorRefreshTokenNotExists());
   }
 
   const refreshToken = await RefreshToken.findOne({
@@ -190,13 +201,13 @@ exports.logout = async (req, res, next) => {
   });
 
   if (!refreshToken) {
-    return next(handleError("Refresh token does not exist", 422));
+    return next(handleErrorRefreshTokenNotExists());
   }
 
   await refreshToken.remove();
 
   res.json({
-    message: "User logged out successfully",
+    ...handleMessageLogout(),
   });
 };
 
@@ -206,7 +217,7 @@ exports.logoutAll = async (req, res, next) => {
   });
 
   if (!refreshTokens) {
-    return next(handleError("Refresh token does not exist"));
+    return next(handleErrorRefreshTokenNotExists());
   }
 
   refreshTokens.forEach(async (token) => {
@@ -214,7 +225,7 @@ exports.logoutAll = async (req, res, next) => {
   });
 
   res.json({
-    message: "User logged out successfully",
+    ...handleMessageLogout(),
   });
 };
 
@@ -230,7 +241,7 @@ exports.reset = async (req, res, next) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    return next(handleError("Email does not exist", 401));
+    return next(handleErrorEmailNotExists());
   }
 
   // logout all
@@ -251,7 +262,7 @@ exports.reset = async (req, res, next) => {
   });
 
   res.json({
-    message: "Code for changing the password has been sent to the email",
+    ...handleMessageReset(),
   });
 };
 
@@ -265,14 +276,14 @@ exports.changePassword = async (req, res, next) => {
   const user = await User.findOne({ resetToken: code });
 
   if (!user) {
-    return next(handleError("The code is invalid", 401));
+    return next(handleErrorCodeInvalidOrExpired());
   }
   if (user.code === null) {
-    return next(handleError("The code is invalid", 401));
+    return next(handleErrorCodeInvalidOrExpired());
   }
   const codeExp = new Date(user.resetExp).getTime();
   if (new Date().getTime() > codeExp) {
-    return next(handleError("Code has expired", 401));
+    return next(handleErrorCodeInvalidOrExpired());
   }
 
   const hashedPassword = await bcrypt.hash(password, 12);
@@ -282,7 +293,7 @@ exports.changePassword = async (req, res, next) => {
   user.save();
 
   res.json({
-    message: "Password changed successfully",
+    ...handleMessageChangePassword(),
   });
 };
 

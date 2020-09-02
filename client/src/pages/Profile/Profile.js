@@ -23,8 +23,9 @@ const Profile = () => {
 
   return (
     <Layout title="Profile" description="short description">
-      <h2>Information</h2>
+      <h2>Information: </h2>
       {JSON.stringify(profile)}
+      <h2>Tokens: </h2>
       <Button onClick={logoutAll}>Logout all</Button>
       <ListGroup>
         {tokens.map((token) => (

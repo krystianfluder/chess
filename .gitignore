@@ -31,3 +31,5 @@ server/.env
 server/access.log
 
 node_modules
+
+.vscode

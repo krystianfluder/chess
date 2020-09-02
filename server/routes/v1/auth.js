@@ -13,9 +13,6 @@ const isValid = [
   body("password").isLength({ min: 8 }),
 ];
 
-/**
- * GET v1/status
- */
 router.get("/status", isAuth, catchAsync(userController.getStatus));
 
 router.post("/refresh-token", catchAsync(userController.refreshToken));
@@ -38,8 +35,6 @@ router.post(
 
 router.post("/logout", isAuth, catchAsync(userController.logout));
 router.post("/logout-all", isAuth, catchAsync(userController.logoutAll));
-
-// router.post("/logout-all", isAuth, catchAsync(userController.logoutAll));
 
 const resetAccountLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour window

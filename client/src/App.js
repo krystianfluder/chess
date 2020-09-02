@@ -10,7 +10,6 @@ import Auth from "./pages/Auth/Auth";
 import Profile from "./pages/Profile/Profile";
 import Logout from "./pages/Auth/Logout";
 import Item from "./components/Navigation/Item";
-import Page404 from "./pages/Page404";
 
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
@@ -68,9 +67,6 @@ function App() {
           </Route>
           <Route path="/auth" exact>
             {!accessToken ? <Auth /> : <Redirect to="/game" />}
-          </Route>
-          <Route>
-            <Page404 />
           </Route>
         </Switch>
       </div>

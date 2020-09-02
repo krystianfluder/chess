@@ -1,5 +1,4 @@
 const express = require("express");
-const { body, check } = require("express-validator");
 const { catchAsync } = require("../../middleware/errors");
 const { isAuth } = require("../../middleware/auth");
 

@@ -17,8 +17,6 @@ const removeErrorMessage = () => {
   };
 };
 
-// refresh token
-
 const refreshTokenAction = (accessToken, refreshToken) => {
   return {
     type: authTypes.AUTH_REFRESH_TOKEN,
@@ -137,13 +135,6 @@ const logoutAllAsync = (accessToken) => {
   };
 };
 
-const login = (profile) => {
-  return {
-    type: authTypes.login,
-    profile,
-  };
-};
-
 const loginAsync = ({ email, password }) => {
   return async (dispatch) => {
     const url = `${BACKEND_URL}/auth/login`;
@@ -160,13 +151,6 @@ const loginAsync = ({ email, password }) => {
         dispatch(authActions.refreshTokenAsync(accessToken, refreshToken));
       }
     }
-  };
-};
-
-const register = (profile) => {
-  return {
-    type: authTypes.register,
-    profile,
   };
 };
 
@@ -192,9 +176,7 @@ const registerAsync = ({ email, password }) => {
 export default {
   logout,
   logoutAsync,
-  login,
   loginAsync,
-  register,
   registerAsync,
   isLogin,
   createErrorMessage,

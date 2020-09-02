@@ -1,14 +1,20 @@
+import { produce } from "immer";
 import { errorTypes as types } from "../types";
+
 const initState = {
   error: null,
 };
 
 const errorReducer = (state = initState, action) => {
   switch (action.type) {
-    case types.set:
-      return { ...state, error: action.error };
-    case types.remove:
-      return { ...state, error: null };
+    case types.ERROR_SET:
+      return produce(state, (draftState) => {
+        draftState.error = action.error;
+      });
+    case types.ERROR_HIDE:
+      return produce(state, (draftState) => {
+        draftState.error = null;
+      });
     default:
       return state;
   }

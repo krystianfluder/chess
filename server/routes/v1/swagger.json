@@ -6,7 +6,7 @@
     "title": "Chess BACKEND",
     "termsOfService": "http://swagger.io/terms/",
     "contact": {
-      "email": "example@example.com"
+      "email": "krystian.fluder@outlook.com"
     }
   },
   "host": "localhost:8080",
@@ -91,8 +91,11 @@
           "200": {
             "description": "User logged out successfully"
           },
+          "400": {
+            "description": "The token must be provided"
+          },
           "401": {
-            "description": "The token must be provided or token blacklisted"
+            "description": "The token is invalid or has expired"
           }
         },
         "security": [
@@ -113,8 +116,11 @@
           "200": {
             "description": "User logged out successfully"
           },
+          "400": {
+            "description": "The token must be provided"
+          },
           "401": {
-            "description": "The token must be provided or token blacklisted"
+            "description": "The token is invalid or has expired"
           }
         },
         "security": [
@@ -152,18 +158,10 @@
           "200": {
             "description": "Code for changing the password has been sent to the email"
           },
-          "401": {
-            "description": "Email does not exist"
-          },
           "422": {
-            "description": "Validation failed, entered data is incorrect"
+            "description": "Validation failed, entered data is incorrect || Email does not exist"
           }
-        },
-        "security": [
-          {
-            "Bearer": []
-          }
-        ]
+        }
       }
     },
     "/auth/change-password": {
@@ -198,17 +196,12 @@
             "description": "Password changed successfully"
           },
           "401": {
-            "description": "The code is invalid or code has expired"
+            "description": "The code is invalid or expired"
           },
           "422": {
             "description": "Validation failed, entered data is incorrect"
           }
-        },
-        "security": [
-          {
-            "Bearer": []
-          }
-        ]
+        }
       }
     },
     "/auth/status": {
@@ -220,10 +213,13 @@
         "produces": ["application/json"],
         "responses": {
           "200": {
-            "description": "User logged out successfully"
+            "description": "List of logged in devices"
+          },
+          "400": {
+            "description": "The token must be provided"
           },
           "401": {
-            "description": "The token must be provided or token blacklisted"
+            "description": "The token is invalid or has expired"
           }
         },
         "security": [
@@ -261,6 +257,9 @@
           "200": {
             "description": "User logged out successfully"
           },
+          "400": {
+            "description": "The token must be provided"
+          },
           "401": {
             "description": "The token must be provided or token blacklisted"
           }
@@ -297,10 +296,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Product created"
-          },
-          "401": {
-            "description": "The token must be provided or token blacklisted"
+            "description": "Email saved"
           },
           "422": {
             "description": "Validation failed, entered data is incorrect"
