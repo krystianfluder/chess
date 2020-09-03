@@ -18,6 +18,8 @@ import Navigation from "./components/Navigation/Navigation";
 import Modal from "./components/Modal/Modal";
 import Footer from "./components/Footer/Footer";
 
+import Spinner from "./components/Spinner/Spinner";
+
 const NavigationContainer = ({ accessToken }) => {
   return (
     <Navigation>
@@ -41,6 +43,7 @@ function App() {
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.auth.accessToken);
   const error = useSelector((state) => state.error.error);
+  const loading = useSelector((state) => state.common.loading);
 
   const removeError = () => {
     dispatch(errorActions.remove());
@@ -48,6 +51,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      {loading ? <Spinner /> : null}
       {error ? (
         <Modal onClick={removeError}>{JSON.stringify(error)}</Modal>
       ) : null}

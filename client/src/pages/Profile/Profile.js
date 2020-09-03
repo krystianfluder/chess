@@ -27,11 +27,15 @@ const Profile = () => {
       {JSON.stringify(profile)}
       <h2>Tokens: </h2>
       <Button onClick={logoutAll}>Logout all</Button>
-      <ListGroup>
-        {tokens.map((token) => (
-          <ListGroupItem key={token._id}>{JSON.stringify(token)}</ListGroupItem>
-        ))}
-      </ListGroup>
+      {tokens ? (
+        <ListGroup>
+          {tokens.map((token) => (
+            <ListGroupItem key={token._id}>
+              {JSON.stringify(token)}
+            </ListGroupItem>
+          ))}
+        </ListGroup>
+      ) : null}
     </Layout>
   );
 };

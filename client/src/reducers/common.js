@@ -16,6 +16,10 @@ const commmonReducer = (state = initState, action) => {
       return produce(state, (draftState) => {
         draftState.message = null;
       });
+    case types.COMMON_TOGGLE_SPINNER:
+      return produce(state, (draftState) => {
+        draftState.loading = action.bool;
+      });
     default:
       return state;
   }

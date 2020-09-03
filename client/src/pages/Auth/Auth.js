@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./Auth.scss";
 import AuthForm from "./AuthForm";
 import Button from "../../components/Button/Button";
@@ -9,6 +9,7 @@ import modes from "../../assets/js/authModes";
 import { authActions } from "../../actions";
 
 const Auth = (props) => {
+  const errorMessage = useSelector((state) => state.auth.errorMessage);
   const dispatch = useDispatch();
   const [authMode, setAuthMode] = useState("Register");
 
@@ -17,7 +18,9 @@ const Auth = (props) => {
   };
 
   useEffect(() => {
-    dispatch(authActions.removeErrorMessage());
+    if (errorMessage) {
+      dispatch(authActions.removeErrorMessage());
+    }
   }, [dispatch]);
 
   return (

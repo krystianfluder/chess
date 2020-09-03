@@ -41,10 +41,12 @@ const refreshTokenAsync = (accessToken, refreshToken) => {
 
 const asyncFetchProfile = () => {
   return async (dispatch) => {
+    dispatch(commonActions.toggleSpinner(true));
     const response = await axiosRefreshToken.get("/profile");
     if (response) {
       const { profile } = response.data;
       dispatch(fetchProfile(profile));
+      dispatch(commonActions.toggleSpinner(false));
     }
   };
 };
@@ -65,9 +67,11 @@ const fetchTokens = (tokens) => {
 
 const fetchTokensAsync = () => {
   return async (dispatch) => {
+    dispatch(commonActions.toggleSpinner(true));
     const response = await axiosRefreshToken.get("/auth/status");
     if (response) {
       dispatch(fetchTokens(response.data.refreshTokens));
+      dispatch(commonActions.toggleSpinner(false));
     }
   };
 };
@@ -101,15 +105,18 @@ const logoutAsync = () => {
 
 const logoutAsyncRemote = (refreshToken) => {
   return async (dispatch) => {
+    dispatch(commonActions.toggleSpinner(true));
     await axiosRefreshToken.post("/auth/logout", {
       token: refreshToken,
     });
     dispatch(logoutAsync());
+    dispatch(commonActions.toggleSpinner(false));
   };
 };
 
 const logoutAllAsync = () => {
   return async (dispatch) => {
+    dispatch(commonActions.toggleSpinner(true));
     const response = await axiosRefreshToken.post("/auth/logout-all");
 
     if (response) {
@@ -117,6 +124,7 @@ const logoutAllAsync = () => {
       const { message } = data;
       if (status === 200 && message === "User logged out successfully") {
         dispatch(logoutAsync());
+        dispatch(commonActions.toggleSpinner(false));
       }
     }
   };
@@ -124,6 +132,7 @@ const logoutAllAsync = () => {
 
 const loginAsync = ({ email, password }) => {
   return async (dispatch) => {
+    dispatch(commonActions.toggleSpinner(true));
     const response = await axiosDefault.post("/auth/login", {
       email,
       password,
@@ -135,6 +144,7 @@ const loginAsync = ({ email, password }) => {
 
       if (status === 200 && message === "User logged in successfully") {
         dispatch(authActions.refreshTokenAsync(accessToken, refreshToken));
+        dispatch(commonActions.toggleSpinner(false));
       }
     }
   };
@@ -142,6 +152,7 @@ const loginAsync = ({ email, password }) => {
 
 const registerAsync = ({ email, password }) => {
   return async (dispatch) => {
+    dispatch(commonActions.toggleSpinner(true));
     const response = await axiosDefault.post("/auth/register", {
       email,
       password,
@@ -153,6 +164,7 @@ const registerAsync = ({ email, password }) => {
 
       if (status === 200 && message === "User created in successfully") {
         dispatch(authActions.refreshTokenAsync(accessToken, refreshToken));
+        dispatch(commonActions.toggleSpinner(false));
       }
     }
   };
@@ -166,6 +178,7 @@ const resetSuccess = () => {
 
 const resetAsync = (email, history) => {
   return async (dispatch) => {
+    dispatch(commonActions.toggleSpinner(true));
     const response = await axiosDefault.post(`/auth/reset`, {
       email,
     });
@@ -184,6 +197,7 @@ const resetAsync = (email, history) => {
           )
         );
         dispatch(authActions.resetSuccess());
+        dispatch(commonActions.toggleSpinner(false));
       }
     }
   };
@@ -197,6 +211,7 @@ const newPasswordSuccess = () => {
 
 const newPasswordAsync = (code, password, history) => {
   return async (dispatch) => {
+    dispatch(commonActions.toggleSpinner(true));
     const response = await axiosDefault.post(`/auth/change-password`, {
       code,
       password,
@@ -210,6 +225,7 @@ const newPasswordAsync = (code, password, history) => {
         history.push("/auth");
         dispatch(commonActions.setMessage("Passwod changed successfully"));
         dispatch(authActions.newPasswordSuccess());
+        dispatch(commonActions.toggleSpinner(false));
       }
     }
   };

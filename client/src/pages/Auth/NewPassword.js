@@ -13,7 +13,9 @@ const NewPassword = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(authActions.removeErrorMessage());
+    if (errorMessage) {
+      dispatch(authActions.removeErrorMessage());
+    }
   }, [dispatch]);
 
   const errorMessage = useSelector((state) => state.auth.errorMessage);

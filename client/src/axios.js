@@ -2,7 +2,7 @@ import { BACKEND_URL } from "./env";
 import reduxStore from "./store";
 import errorsActions from "./actions/error";
 import authActions from "./actions/auth";
-import { errorActions } from "./actions";
+import { errorActions, commonActions } from "./actions";
 
 const axios = require("axios");
 
@@ -41,8 +41,10 @@ axiosDefault.interceptors.response.use(
       } else {
         dispatch(errorsActions.set(message));
       }
+      dispatch(commonActions.toggleSpinner(false));
       return response;
     } else {
+      dispatch(commonActions.toggleSpinner(false));
       dispatch(errorsActions.set(error.message));
     }
   }
@@ -68,11 +70,9 @@ axiosRefreshToken.interceptors.response.use(
       const { status, data, config } = response;
       const { message } = data;
 
-      if (
-        status === 401 &&
-        message === "The token is invalid or has expired" &&
-        config.data
-      ) {
+      console.log("axios!!!!!!!!!!!!!!!!!", status, message, config);
+
+      if (status === 401 && message === "The token is invalid or has expired") {
         const url = `${BACKEND_URL}/auth/refresh-token`;
         const state = getState();
         try {
@@ -86,7 +86,8 @@ axiosRefreshToken.interceptors.response.use(
           if (error.response) {
             if (
               error.response.status === 401 &&
-              error.response.data.message === "Incorrect refresh token"
+              error.response.data.message ===
+                "Incorrect refresh token or not provided"
             ) {
               dispatch(errorsActions.set("Incorrect refresh token"));
               dispatch(authActions.logoutAsync());
@@ -98,8 +99,10 @@ axiosRefreshToken.interceptors.response.use(
       } else {
         dispatch(errorsActions.set(message));
       }
+      dispatch(commonActions.toggleSpinner(false));
       return response;
     } else {
+      dispatch(commonActions.toggleSpinner(false));
       dispatch(errorsActions.set(error.message));
     }
   }

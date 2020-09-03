@@ -13,7 +13,15 @@ const removeMessage = () => {
   };
 };
 
+const toggleSpinner = (bool) => {
+  return {
+    type: commonTypes.COMMON_TOGGLE_SPINNER,
+    bool,
+  };
+};
+
 export default {
   setMessage,
   removeMessage,
+  toggleSpinner,
 };
