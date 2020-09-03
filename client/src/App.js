@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.scss";
 
-import { errorActions, commonActions } from "./actions";
+import { errorActions } from "./actions";
 
 import Home from "./pages/Home/Home";
 import Game from "./pages/Game/Game";
@@ -41,14 +41,9 @@ function App() {
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.auth.accessToken);
   const error = useSelector((state) => state.error.error);
-  const message = useSelector((state) => state.common.message);
 
   const removeError = () => {
     dispatch(errorActions.remove());
-  };
-
-  const removeMessage = () => {
-    dispatch(commonActions.removeMessage());
   };
 
   return (

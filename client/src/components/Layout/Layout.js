@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Alert from "../../components/Alert/Alert";
 import PropTypes from "prop-types";
@@ -10,19 +10,18 @@ const Layout = ({ children, title, description }) => {
   const dispatch = useDispatch();
   const message = useSelector((state) => state.common.message);
 
-  const removeMessage = () => {
+  const removeMessage = useCallback(() => {
     dispatch(commonActions.removeMessage());
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     document.title = title;
-    console.log(message);
     return () => {
       if (message) {
-        dispatch(commonActions.removeMessage());
+        removeMessage();
       }
     };
-  }, [title, description, message]);
+  }, [title, description, message, removeMessage]);
 
   return (
     <main className="layout">

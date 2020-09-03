@@ -11,10 +11,10 @@ import Layout from "../../components/Layout/Layout";
 const NewPassword = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(authActions.removeErrorMessage());
-    dispatch(authActions.loadedNewPassword());
-  }, []);
+  }, [dispatch]);
 
   const errorMessage = useSelector((state) => state.auth.errorMessage);
 

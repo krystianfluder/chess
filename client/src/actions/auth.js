@@ -158,9 +158,9 @@ const registerAsync = ({ email, password }) => {
   };
 };
 
-const reset = () => {
+const resetSuccess = () => {
   return {
-    type: authTypes.AUTH_RESET,
+    type: authTypes.AUTH_RESET_SUCCESS,
   };
 };
 
@@ -178,14 +178,20 @@ const resetAsync = (email, history) => {
         message === "Code for changing the password has been sent to the email"
       ) {
         history.push("/auth/new-password");
-        dispatch(authActions.reset());
         dispatch(
           commonActions.setMessage(
             "Code for changing the password has been sent to the email"
           )
         );
+        dispatch(authActions.resetSuccess());
       }
     }
+  };
+};
+
+const newPasswordSuccess = () => {
+  return {
+    type: authTypes.AUTH_NEW_PASSWORD_SUCCESS,
   };
 };
 
@@ -203,24 +209,17 @@ const newPasswordAsync = (code, password, history) => {
       if (status === 200 && message === "Password changed successfully") {
         history.push("/auth");
         dispatch(commonActions.setMessage("Passwod changed successfully"));
+        dispatch(authActions.newPasswordSuccess());
       }
     }
   };
 };
 
-const loadedNewPassword = () => {
-  return {
-    type: authTypes.AUTH_LOADED_NEW_PASSWORD,
-  };
-};
-
 export default {
   logout,
-  reset,
   logoutAsync,
   loginAsync,
   registerAsync,
-  resetAsync,
   isLogin,
   createErrorMessage,
   removeErrorMessage,
@@ -231,6 +230,9 @@ export default {
   logoutAllAsync,
   fetchTokensAsync,
   logoutAsyncRemote,
+
+  resetAsync,
+  resetSuccess,
   newPasswordAsync,
-  loadedNewPassword,
+  newPasswordSuccess,
 };

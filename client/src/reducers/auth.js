@@ -45,6 +45,10 @@ const auth = (state = initState, action) => {
       return produce(state, (draftState) => {
         draftState.reseted = false;
       });
+    case types.AUTH_NEW_PASSWORD_SUCCESS:
+      return state;
+    case types.AUTH_RESET_SUCCESS:
+      return state;
     default:
       return state;
   }
