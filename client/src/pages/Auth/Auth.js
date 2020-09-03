@@ -8,7 +8,7 @@ import Layout from "../../components/Layout/Layout";
 import modes from "../../assets/js/authModes";
 import { authActions } from "../../actions";
 
-const Auth = (props) => {
+const Auth = () => {
   const errorMessage = useSelector((state) => state.auth.errorMessage);
   const dispatch = useDispatch();
   const [authMode, setAuthMode] = useState("Register");
@@ -21,7 +21,7 @@ const Auth = (props) => {
     if (errorMessage) {
       dispatch(authActions.removeErrorMessage());
     }
-  }, [dispatch]);
+  }, [dispatch, errorMessage]);
 
   return (
     <>

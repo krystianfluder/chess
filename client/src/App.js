@@ -1,15 +1,10 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.scss";
 
 import { errorActions } from "./actions";
 
-import Home from "./pages/Home/Home";
-import Game from "./pages/Game/Game";
-import Auth from "./pages/Auth/Auth";
-import Profile from "./pages/Profile/Profile";
 import Logout from "./pages/Auth/Logout";
-import NewPassword from "./pages/Auth/NewPassword";
 
 import Item from "./components/Navigation/Item";
 
@@ -17,8 +12,39 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
 import Modal from "./components/Modal/Modal";
 import Footer from "./components/Footer/Footer";
-
 import Spinner from "./components/Spinner/Spinner";
+
+const Spinner2 = () => {
+  return (
+    <div
+      style={{
+        padding: "20px",
+      }}
+    ></div>
+  );
+};
+
+const LazyLoad = ({ component: Component, ...rest }) => (
+  <>
+    <Suspense fallback={<Spinner2 />}>
+      <Component {...rest} />
+    </Suspense>
+  </>
+);
+
+const Home = React.lazy(() => import("./pages/Home/Home"));
+const Auth = React.lazy(() => import("./pages/Auth/Auth"));
+const Game = React.lazy(() => import("./pages/Game/Game"));
+const Profile = React.lazy(() => import("./pages/Profile/Profile"));
+const NewPassword = React.lazy(() => import("./pages/Auth/NewPassword"));
+
+const LazyHome = (props) => <LazyLoad component={Home} {...props} />;
+const LazyAuth = (props) => <LazyLoad component={Auth} {...props} />;
+const LazyGame = (props) => <LazyLoad component={Game} {...props} />;
+const LazyProfile = (props) => <LazyLoad component={Profile} {...props} />;
+const LazyNewPassword = (props) => (
+  <LazyLoad component={NewPassword} {...props} />
+);
 
 const NavigationContainer = ({ accessToken }) => {
   return (
@@ -60,22 +86,22 @@ function App() {
         <NavigationContainer accessToken={accessToken} />
         <Switch>
           <Route path="/" exact>
-            <Home />
+            <LazyHome />
           </Route>
           <Route path="/game" exact>
-            {accessToken ? <Game /> : <Redirect to="/auth" />}
+            {accessToken ? <LazyGame /> : <Redirect to="/auth" />}
           </Route>
           <Route path="/profile" exact>
-            {accessToken ? <Profile /> : <Redirect to="/auth" />}
+            {accessToken ? <LazyProfile /> : <Redirect to="/auth" />}
           </Route>
           <Route path="/logout" exact>
             {accessToken ? <Logout /> : <Redirect to="/auth" />}
           </Route>
           <Route path="/auth" exact>
-            {!accessToken ? <Auth /> : <Redirect to="/game" />}
+            {!accessToken ? <LazyAuth /> : <Redirect to="/game" />}
           </Route>
           <Route path="/auth/new-password">
-            {!accessToken ? <NewPassword /> : <Redirect to="/game" />}
+            {!accessToken ? <LazyNewPassword /> : <Redirect to="/game" />}
           </Route>
         </Switch>
       </div>

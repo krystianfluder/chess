@@ -20,8 +20,14 @@ const axiosDefault = axios.create({
   },
 });
 
+axiosDefault.interceptors.request.use(function (config) {
+  reduxStore.dispatch(commonActions.toggleSpinner(true));
+  return config;
+});
+
 axiosDefault.interceptors.response.use(
   (response) => {
+    reduxStore.dispatch(commonActions.toggleSpinner(false));
     return response;
   },
   async (error) => {
@@ -37,7 +43,11 @@ axiosDefault.interceptors.response.use(
         url === `/auth/reset` ||
         url === `/auth/change-password`
       ) {
-        dispatch(authActions.createErrorMessage(message));
+        if (message) {
+          dispatch(authActions.createErrorMessage(message));
+        } else {
+          dispatch(errorsActions.set(response.data));
+        }
       } else {
         dispatch(errorsActions.set(message));
       }
@@ -51,6 +61,7 @@ axiosDefault.interceptors.response.use(
 );
 
 axiosRefreshToken.interceptors.request.use(function (config) {
+  reduxStore.dispatch(commonActions.toggleSpinner(true));
   const accessToken = reduxStore.getState().auth.accessToken;
   config.headers.Authorization = `Bearer ${accessToken}`;
 
@@ -59,6 +70,7 @@ axiosRefreshToken.interceptors.request.use(function (config) {
 
 axiosRefreshToken.interceptors.response.use(
   (response) => {
+    reduxStore.dispatch(commonActions.toggleSpinner(false));
     return response;
   },
   async (error) => {
@@ -67,10 +79,8 @@ axiosRefreshToken.interceptors.response.use(
     const { response } = error;
 
     if (response) {
-      const { status, data, config } = response;
+      const { status, data } = response;
       const { message } = data;
-
-      console.log("axios!!!!!!!!!!!!!!!!!", status, message, config);
 
       if (status === 401 && message === "The token is invalid or has expired") {
         const url = `${BACKEND_URL}/auth/refresh-token`;

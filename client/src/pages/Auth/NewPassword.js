@@ -9,21 +9,20 @@ import * as Yup from "yup";
 import Layout from "../../components/Layout/Layout";
 
 const NewPassword = () => {
+  const errorMessage = useSelector((state) => state.auth.errorMessage);
   const history = useHistory();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (errorMessage) {
-      dispatch(authActions.removeErrorMessage());
-    }
-  }, [dispatch]);
-
-  const errorMessage = useSelector((state) => state.auth.errorMessage);
 
   const changePassword = (code, password, history) => {
     dispatch(authActions.removeErrorMessage());
     dispatch(authActions.newPasswordAsync(code, password, history));
   };
+
+  useEffect(() => {
+    if (errorMessage) {
+      dispatch(authActions.removeErrorMessage());
+    }
+  }, [dispatch, errorMessage]);
 
   return (
     <Layout title="New password" description="lorem">
