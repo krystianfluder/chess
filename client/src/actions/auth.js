@@ -1,6 +1,5 @@
 import { authTypes } from "../types";
-import { errorActions, authActions } from ".";
-import { BACKEND_URL } from "../env";
+import { errorActions, authActions, commonActions } from "./";
 import storage from "../utils/storage";
 import { axiosRefreshToken, axiosDefault } from "../axios";
 
@@ -125,8 +124,7 @@ const logoutAllAsync = () => {
 
 const loginAsync = ({ email, password }) => {
   return async (dispatch) => {
-    const url = `${BACKEND_URL}/auth/login`;
-    const response = await axiosDefault.post(url, {
+    const response = await axiosDefault.post("/auth/login", {
       email,
       password,
     });
@@ -144,8 +142,7 @@ const loginAsync = ({ email, password }) => {
 
 const registerAsync = ({ email, password }) => {
   return async (dispatch) => {
-    const url = `${BACKEND_URL}/auth/register`;
-    const response = await axiosDefault.post(url, {
+    const response = await axiosDefault.post("/auth/register", {
       email,
       password,
     });
@@ -161,11 +158,69 @@ const registerAsync = ({ email, password }) => {
   };
 };
 
+const reset = () => {
+  return {
+    type: authTypes.AUTH_RESET,
+  };
+};
+
+const resetAsync = (email, history) => {
+  return async (dispatch) => {
+    const response = await axiosDefault.post(`/auth/reset`, {
+      email,
+    });
+
+    if (response) {
+      const { status, data } = response;
+      const { message } = data;
+      if (
+        status === 200 &&
+        message === "Code for changing the password has been sent to the email"
+      ) {
+        history.push("/auth/new-password");
+        dispatch(authActions.reset());
+        dispatch(
+          commonActions.setMessage(
+            "Code for changing the password has been sent to the email"
+          )
+        );
+      }
+    }
+  };
+};
+
+const newPasswordAsync = (code, password, history) => {
+  return async (dispatch) => {
+    const response = await axiosDefault.post(`/auth/change-password`, {
+      code,
+      password,
+    });
+
+    if (response) {
+      const { status, data } = response;
+      const { message } = data;
+
+      if (status === 200 && message === "Password changed successfully") {
+        history.push("/auth");
+        dispatch(commonActions.setMessage("Passwod changed successfully"));
+      }
+    }
+  };
+};
+
+const loadedNewPassword = () => {
+  return {
+    type: authTypes.AUTH_LOADED_NEW_PASSWORD,
+  };
+};
+
 export default {
   logout,
+  reset,
   logoutAsync,
   loginAsync,
   registerAsync,
+  resetAsync,
   isLogin,
   createErrorMessage,
   removeErrorMessage,
@@ -176,4 +231,6 @@ export default {
   logoutAllAsync,
   fetchTokensAsync,
   logoutAsyncRemote,
+  newPasswordAsync,
+  loadedNewPassword,
 };

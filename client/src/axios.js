@@ -32,8 +32,10 @@ axiosDefault.interceptors.response.use(
       const { message } = response.data;
       const { url } = response.config;
       if (
-        url === `${BACKEND_URL}/auth/login` ||
-        url === `${BACKEND_URL}/auth/register`
+        url === `/auth/login` ||
+        url === `/auth/register` ||
+        url === `/auth/reset` ||
+        url === `/auth/change-password`
       ) {
         dispatch(authActions.createErrorMessage(message));
       } else {

@@ -1,0 +1,18 @@
+@import "../../assets/styles/global.scss";
+
+.alert {
+  display: flex;
+  justify-content: space-between;
+  background: $secondary-background;
+  color: $secondary-color;
+
+  &__body {
+    padding: 20px;
+  }
+
+  &__close {
+    position: relative;
+    right: 0;
+    top: 0;
+  }
+}

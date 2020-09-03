@@ -3,7 +3,9 @@ import "./Lightbox.scss";
 
 const Lightbox = ({ onClick, children, variant }) => {
   const classes = ["lightbox"];
-  if (variant === "secondary") {
+  if (!variant || variant === "primary") {
+    classes.push("lightbox--primary");
+  } else if (variant === "secondary") {
     classes.push("lightbox--secondary");
   }
 

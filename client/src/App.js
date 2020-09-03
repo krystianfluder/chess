@@ -2,13 +2,15 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.scss";
 
-import { errorActions } from "./actions";
+import { errorActions, commonActions } from "./actions";
 
 import Home from "./pages/Home/Home";
 import Game from "./pages/Game/Game";
 import Auth from "./pages/Auth/Auth";
 import Profile from "./pages/Profile/Profile";
 import Logout from "./pages/Auth/Logout";
+import NewPassword from "./pages/Auth/NewPassword";
+
 import Item from "./components/Navigation/Item";
 
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -39,9 +41,14 @@ function App() {
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.auth.accessToken);
   const error = useSelector((state) => state.error.error);
+  const message = useSelector((state) => state.common.message);
 
   const removeError = () => {
     dispatch(errorActions.remove());
+  };
+
+  const removeMessage = () => {
+    dispatch(commonActions.removeMessage());
   };
 
   return (
@@ -67,6 +74,9 @@ function App() {
           </Route>
           <Route path="/auth" exact>
             {!accessToken ? <Auth /> : <Redirect to="/game" />}
+          </Route>
+          <Route path="/auth/new-password">
+            {!accessToken ? <NewPassword /> : <Redirect to="/game" />}
           </Route>
         </Switch>
       </div>

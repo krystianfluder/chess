@@ -6,6 +6,7 @@ const initState = {
   refreshToken: null,
   errorMessage: null,
   tokens: [],
+  reseted: false,
 };
 
 const auth = (state = initState, action) => {
@@ -33,6 +34,16 @@ const auth = (state = initState, action) => {
     case types.AUTH_FETCH_TOKENS:
       return produce(state, (draftState) => {
         draftState.tokens = action.tokens;
+      });
+    case types.AUTH_RESET:
+      return produce(state, (draftState) => {
+        draftState.reseted = true;
+      });
+    case types.AUTH_NEW_PASSWORD:
+      return state;
+    case types.AUTH_LOADED_NEW_PASSWORD:
+      return produce(state, (draftState) => {
+        draftState.reseted = false;
       });
     default:
       return state;

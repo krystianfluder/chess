@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { authActions } from "../../actions";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Form/Input/Input";
@@ -14,6 +15,7 @@ let validationSchema = Yup.object().shape({
 });
 
 const AuthForm = ({ authMode }) => {
+  const history = useHistory();
   const errorMessage = useSelector((state) => state.auth.errorMessage);
 
   const dispatch = useDispatch();
@@ -46,7 +48,7 @@ const AuthForm = ({ authMode }) => {
               })
             );
           } else if (authMode === modes.reset) {
-            console.log("reset");
+            dispatch(authActions.resetAsync(values.email, history));
           }
           setSubmitting(false);
         }}

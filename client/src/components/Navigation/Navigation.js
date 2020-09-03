@@ -20,7 +20,7 @@ const Navigation = ({ children }) => {
       </List>
 
       {modal ? (
-        <Modal onClick={() => setModal(false)} variant="secondary">
+        <Modal onClick={() => setModal(false)} variant="primary">
           <List>{children}</List>
         </Modal>
       ) : null}
