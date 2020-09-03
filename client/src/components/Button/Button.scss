@@ -56,33 +56,4 @@
       text-decoration: underline;
     }
   }
-
-  &--close {
-    position: absolute;
-    background-color: transparent;
-    margin: 0;
-    padding: 0;
-    right: 32px;
-    top: 32px;
-    width: 32px;
-    height: 32px;
-    opacity: 1;
-
-    &::before,
-    &::after {
-      position: absolute;
-      left: 15px;
-      top: 0px;
-      content: " ";
-      height: 33px;
-      width: 3px;
-      background-color: white;
-    }
-    &::before {
-      transform: rotate(45deg);
-    }
-    &::after {
-      transform: rotate(-45deg);
-    }
-  }
 }

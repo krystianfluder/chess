@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IoIosMenu } from "react-icons/io";
 import "./Navigation.scss";
 import List from "./List";
 import Modal from "../Modal/Modal";
@@ -12,7 +13,7 @@ const Navigation = ({ children }) => {
           className="navigation__item navigation__item--burger"
           onClick={() => setModal(true)}
         >
-          <i className="material-icons">menu</i>
+          <IoIosMenu size={32} />
         </li>
       </List>
       <List variant="horizontal" active>

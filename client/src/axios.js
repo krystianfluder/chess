@@ -43,11 +43,7 @@ axiosDefault.interceptors.response.use(
         url === `/auth/reset` ||
         url === `/auth/change-password`
       ) {
-        if (message) {
-          dispatch(authActions.createErrorMessage(message));
-        } else {
-          dispatch(errorsActions.set(response.data));
-        }
+        dispatch(authActions.createErrorMessage(message));
       } else {
         dispatch(errorsActions.set(message));
       }

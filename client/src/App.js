@@ -1,13 +1,8 @@
 import React, { Suspense } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import "./App.scss";
-
 import { errorActions } from "./actions";
-
 import Logout from "./pages/Auth/Logout";
-
 import Item from "./components/Navigation/Item";
-
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
 import Modal from "./components/Modal/Modal";
@@ -18,9 +13,14 @@ const Spinner2 = () => {
   return (
     <div
       style={{
+        margin: "0 auto",
+        width: "100%",
+        maxWidth: "1200px",
         padding: "20px",
       }}
-    ></div>
+    >
+      <h1>Loading...</h1>
+    </div>
   );
 };
 

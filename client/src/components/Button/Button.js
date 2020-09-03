@@ -11,8 +11,6 @@ const Button = ({ variant, onClick, type, disabled, children }) => {
     classes.push("btn--secondary");
   } else if (variant === "link") {
     classes.push("btn--link");
-  } else if (variant === "close") {
-    classes.push("btn--close");
   }
 
   return (
