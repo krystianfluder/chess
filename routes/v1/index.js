@@ -17,9 +17,9 @@ router.use("/auth", authRoutes);
 router.use("/newsletter", newsletterRoutes);
 router.use("/profile", profileRoutes);
 
-if (process.env.NODE_ENV === "development") {
-  router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-}
+// if (process.env.NODE_ENV === "development") {
+router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// }
 
 router.use(notFound);
 router.use(catchErrors);
