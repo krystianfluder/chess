@@ -18,12 +18,6 @@ const NewPassword = () => {
     dispatch(authActions.newPasswordAsync(code, password, history));
   };
 
-  useEffect(() => {
-    if (errorMessage) {
-      dispatch(authActions.removeErrorMessage());
-    }
-  }, [dispatch, errorMessage]);
-
   return (
     <Layout title="New password" description="lorem">
       <Formik

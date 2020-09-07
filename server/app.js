@@ -8,9 +8,6 @@ var morgan = require("morgan");
 var path = require("path");
 
 const v1Routes = require("./routes/v1");
-const { corsOptions } = require("./config/cors");
-
-const { notFound, catchErrors } = require("./middleware/errors");
 
 const app = express();
 
@@ -40,10 +37,12 @@ if (process.env.NODE_ENV === "production") {
   app.use(morgan("combined", { stream: accessLogStream }));
 }
 
-app.use("/static", express.static("static"));
+// app.use(express.static(path.resolve("../client/build")));
+
 app.use("/v1", v1Routes);
 
-app.use(notFound);
-app.use(catchErrors);
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve("../client/build/index.html"));
+// });
 
 exports.app = app;

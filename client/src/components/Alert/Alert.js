@@ -7,7 +7,7 @@ const Alert = ({ onClick, children }) => {
     <div className="alert">
       <div className="alert__body">
         <h2>Message</h2>
-        {children}close
+        {children}
       </div>
       <div className="alert__close">
         <IoIosClose size={50} onClick={onClick} />

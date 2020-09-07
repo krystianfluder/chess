@@ -1,6 +1,7 @@
 const express = require("express");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
+const { notFound, catchErrors } = require("../../middleware/errors");
 
 const authRoutes = require("./auth");
 const newsletterRoutes = require("./newsletter");
@@ -19,5 +20,8 @@ router.use("/profile", profileRoutes);
 if (process.env.NODE_ENV === "development") {
   router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 }
+
+router.use(notFound);
+router.use(catchErrors);
 
 module.exports = router;
