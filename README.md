@@ -2,7 +2,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![License][license-shield]][license-url]
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/krystianfluder/chess/blob/master/LICENSE)
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
@@ -15,12 +15,12 @@
   <h3 align="center">Chess</h3>
 
   <p align="center">
-    express, mongoose, react, redux
+    Authentication with refresh tokens, account reset, simple game using redux and much more.
     <br />
-    <a href="https://github.com/krystianfluder/chess"><strong>Explore the docs »</strong></a>
+    <a href="https://project-chess.herokuapp.com/v1/docs"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/krystianfluder/chess">View Demo</a>
+    <a href="https://project-chess.herokuapp.com/">View Demo</a>
     ·
     <a href="https://github.com/krystianfluder/chess/issues">Report Bug</a>
     ·
@@ -51,6 +51,16 @@
 [![Product Name Screen Shot][product-screenshot]](https://github.com/krystianfluder/chess)
 
 ### Built With
+
+- [express](https://expressjs.com/)
+- [mongoose](https://mongoosejs.com/)
+- [jwt](https://www.npmjs.com/package/jsonwebtoken)
+- [swagger](https://swagger.io/)
+- [nodemailer](https://nodemailer.com/)
+- [react](https://reactjs.org/)
+- [redux](https://redux.js.org/)
+- [axios](https://github.com/axios/axios)
+- [formik](https://formik.org/)
 
 and more
 
@@ -84,11 +94,23 @@ git clone https://github.com/krystianfluder/chess.git
 npm install
 ```
 
+3. Copy .env.example
+
+```sh
+cp .env.example .env
+```
+
+4. Update .env
+
 <!-- USAGE EXAMPLES -->
 
 ## Usage
 
-[Demo](https://example.com)
+Development
+
+```sh
+npm run dev
+```
 
 <!-- ROADMAP -->
 
@@ -137,8 +159,6 @@ Project Link: [https://github.com/krystianfluder/chess](https://github.com/kryst
 [stars-url]: https://github.com/krystianfluder/chess/stargazers
 [issues-shield]: https://img.shields.io/github/issues/krystianfluder/chess.svg?style=flat-square
 [issues-url]: https://github.com/krystianfluder/chess/issues
-[license-shield]: https://img.shields.io/github/license/krystianfluder/chess.svg?style=flat-square
-[license-url]: https://github.com/krystianfluder/chess/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/krystianfluder
 [product-screenshot]: ss/full.png
